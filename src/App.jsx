@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // GitHub Pages image path helper
+  // Vite relative asset path helper
   const getImgPath = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 
   const projects = [
@@ -24,18 +24,6 @@ function App() {
       baSkills: ["Requirement Identification", "Workflow Analysis", "Process Understanding"],
       role: "Business Analysis & System Development",
       github: "https://github.com/Kavindi-Sandaruwani/CRM-System"
-    },
-    {
-      id: "02",
-      title: "AcademiCore - Student Management System",
-      description: "A robust full-stack web application designed for educational institutions to manage student records, course enrollments, and academic performance tracking efficiently.",
-      image: "images/academicore-login.jpg",
-      problem: "Manual record keeping causes data inaccuracy and delays in tracking student performance.",
-      solution: "Automated student management portal with real-time reporting.",
-      features: ["Student registration & profiling", "Course enrollment tracking", "Gradebook management"],
-      baSkills: ["Data Modeling", "System Design"],
-      role: "Full-Stack Development",
-      github: "https://github.com/Kavindi-Sandaruwani/AcademiCore-Student-Management-System"
     }
   ];
 
@@ -58,197 +46,243 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#070b12] text-gray-200 font-sans selection:bg-cyan-500 selection:text-black">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#070b12]/90 backdrop-blur-md border-b border-cyan-900/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex justify-between h-20 items-center">
-            <span className="text-xl font-bold tracking-widest text-cyan-400 uppercase">
-              Kavindi Sandaruwani
-            </span>
-            
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
-              <a href="#home" className="hover:text-cyan-400 transition-colors">Home</a>
-              <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-              <a href="#education" className="hover:text-cyan-400 transition-colors">Education</a>
-              <a href="#skills" className="hover:text-cyan-400 transition-colors">BA Skills</a>
-              <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
-              <a href="#certifications" className="hover:text-cyan-400 transition-colors">Certifications</a>
-              <a href="#contact" className="px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all">
-                Contact
-              </a>
-            </div>
+    <div style={{ backgroundColor: '#050a14', color: '#e2e8f0', fontFamily: 'sans-serif', minHeight: '100vh', margin: 0, padding: 0 }}>
+      {/* Navbar */}
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        backgroundColor: 'rgba(5, 10, 20, 0.95)',
+        borderBottom: '1px solid rgba(6, 182, 212, 0.2)',
+        backdropFilter: 'blur(8px)',
+        zIndex: 1000,
+        padding: '0 40px'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
+          <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#00d8ff', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            Kavindi Sandaruwani
+          </span>
+          <div style={{ display: 'flex', gap: '25px', fontSize: '14px', alignItems: 'center' }}>
+            <a href="#about" style={{ color: '#e2e8f0', textDecoration: 'none' }}>About</a>
+            <a href="#projects" style={{ color: '#e2e8f0', textDecoration: 'none' }}>Projects</a>
+            <a href="#certifications" style={{ color: '#e2e8f0', textDecoration: 'none' }}>Certifications</a>
+            <a href="#contact" style={{
+              color: '#00d8ff',
+              border: '1px solid #00d8ff',
+              padding: '6px 18px',
+              borderRadius: '20px',
+              textDecoration: 'none'
+            }}>Contact</a>
           </div>
         </div>
       </nav>
 
-      {/* About Section */}
-      <section id="about" className="pt-36 pb-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-12">About Me</h2>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 20px 60px 20px' }}>
+        
+        {/* About Section */}
+        <section id="about" style={{ marginBottom: '80px' }}>
+          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
+            About Me
+          </h2>
 
-        <div className="grid md:grid-cols-12 gap-8 items-start">
-          {/* Profile Card */}
-          <div className="md:col-span-4 bg-[#0e1626] border border-cyan-900/40 rounded-2xl p-8 text-center flex flex-col items-center">
-            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-cyan-400 mb-6 shadow-lg shadow-cyan-500/20">
-              <img 
-                src={getImgPath('images/profile.jpg')} 
-                alt="Kavindi Sandaruwani" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Fallback if image not found
-                  e.target.onerror = null; 
-                  e.target.src = 'https://via.placeholder.com/160?text=Kavindi';
-                }}
-              />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Aspiring Business Analyst</h3>
-            <p className="text-xs text-gray-400">Bridging Business Goals with Technology Solutions</p>
-          </div>
-
-          {/* Description & Stats */}
-          <div className="md:col-span-8 space-y-8">
-            <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
-              <p>
-                I am <span className="font-semibold text-white">Kavindi Sandaruwani</span>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning. I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
+          <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '40px', alignItems: 'start' }}>
+            
+            {/* Left Card with Profile Photo */}
+            <div style={{
+              backgroundColor: '#0a1120',
+              border: '1px solid rgba(6, 182, 212, 0.3)',
+              borderRadius: '16px',
+              padding: '30px 20px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+              <div style={{
+                width: '160px',
+                height: '160px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '4px solid #00d8ff',
+                marginBottom: '20px',
+                boxShadow: '0 0 20px rgba(0, 216, 255, 0.3)'
+              }}>
+                <img 
+                  src={getImgPath('images/profile.jpg')} 
+                  alt="Kavindi Sandaruwani" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://via.placeholder.com/160?text=Kavindi';
+                  }}
+                />
+              </div>
+              <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 'bold', margin: '0 0 8px 0' }}>
+                Aspiring Business Analyst
+              </h3>
+              <p style={{ color: '#94a3b8', fontSize: '12px', margin: 0 }}>
+                Bridging Business Goals with Technology Solutions
               </p>
-              <p>
-                I am passionate about using technology to solve real-world problems and creating user-focused, efficient solutions. Through my academic projects and continuous learning, I am developing my skills in software development, database management, data visualization, and business analysis.
-              </p>
             </div>
 
-            {/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
-                <h4 className="text-2xl font-bold text-cyan-400">3rd Year</h4>
-                <p className="text-xs text-gray-400 mt-1">ICT Undergraduate</p>
+            {/* Right Side Text & Stats */}
+            <div>
+              <div style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: '1.7', marginBottom: '30px' }}>
+                <p style={{ marginBottom: '16px' }}>
+                  I am <strong style={{ color: '#ffffff' }}>Kavindi Sandaruwani</strong>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning.
+                </p>
+                <p>
+                  I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
+                </p>
               </div>
-              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
-                <h4 className="text-2xl font-bold text-cyan-400">4+</h4>
-                <p className="text-xs text-gray-400 mt-1">Practical Projects</p>
-              </div>
-              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
-                <h4 className="text-2xl font-bold text-cyan-400">6+</h4>
-                <p className="text-xs text-gray-400 mt-1">Certifications</p>
+
+              {/* Stats Box Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
+                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>3rd Year</div>
+                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>ICT Undergraduate</div>
+                </div>
+                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
+                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>4+</div>
+                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>Practical Projects</div>
+                </div>
+                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
+                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>6+</div>
+                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>Certifications</div>
+                </div>
               </div>
             </div>
+
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-16">Projects</h2>
+        {/* Projects Section */}
+        <section id="projects" style={{ marginBottom: '80px' }}>
+          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
+            Projects
+          </h2>
 
-        <div className="space-y-12">
           {projects.map((proj) => (
-            <div key={proj.id} className="bg-[#0c1220] border border-cyan-500/30 rounded-2xl p-8 relative">
-              
-              {/* Top Header */}
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-cyan-400 flex items-center gap-2">
+            <div key={proj.id} style={{
+              backgroundColor: '#0a1120',
+              border: '1px solid rgba(6, 182, 212, 0.4)',
+              borderRadius: '16px',
+              padding: '25px',
+              marginBottom: '30px'
+            }}>
+              {/* Card Title Header */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h3 style={{ color: '#00d8ff', fontSize: '20px', margin: 0, fontWeight: 'bold' }}>
                   🚀 {proj.id}. {proj.title}
                 </h3>
-                {proj.category && (
-                  <span className="bg-gray-800/80 text-gray-300 text-xs px-4 py-2 rounded-lg border border-gray-700">
-                    {proj.category}
-                  </span>
-                )}
+                <span style={{ backgroundColor: '#1e293b', color: '#cbd5e1', fontSize: '11px', padding: '5px 12px', borderRadius: '6px' }}>
+                  {proj.category}
+                </span>
               </div>
 
-              {/* Main Content Grid */}
-              <div className="grid md:grid-cols-12 gap-8 mb-8">
-                {/* Image */}
-                <div className="md:col-span-5 rounded-xl overflow-hidden border border-cyan-900/50 bg-[#070b12] flex items-center justify-center">
+              {/* Main Grid Layout */}
+              <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '25px', marginBottom: '20px' }}>
+                {/* Project Image Box */}
+                <div style={{
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(6, 182, 212, 0.2)',
+                  backgroundColor: '#050a14',
+                  height: '180px'
+                }}>
                   <img 
                     src={getImgPath(proj.image)} 
                     alt={proj.title} 
-                    className="w-full h-full object-cover"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://via.placeholder.com/400x250?text=Project+Image';
+                      e.target.src = 'https://via.placeholder.com/300x180?text=CRM+Dashboard';
                     }}
                   />
                 </div>
 
-                {/* Description & Details */}
-                <div className="md:col-span-7 space-y-6">
-                  <p className="text-gray-300 text-sm leading-relaxed">{proj.description}</p>
+                {/* Details */}
+                <div>
+                  <p style={{ color: '#cbd5e1', fontSize: '13px', lineHeight: '1.6', marginTop: 0, marginBottom: '20px' }}>
+                    {proj.description}
+                  </p>
 
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
-                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Problem Identified</h5>
-                      <p className="text-xs text-gray-400 leading-relaxed text-center">{proj.problem}</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Problem Identified</h5>
+                      <p style={{ color: '#94a3b8', fontSize: '11px', textAlign: 'center', margin: 0, lineHeight: '1.4' }}>{proj.problem}</p>
                     </div>
 
-                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
-                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Proposed Solution</h5>
-                      <p className="text-xs text-gray-400 leading-relaxed text-center">{proj.solution}</p>
+                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Proposed Solution</h5>
+                      <p style={{ color: '#94a3b8', fontSize: '11px', textAlign: 'center', margin: 0, lineHeight: '1.4' }}>{proj.solution}</p>
                     </div>
 
-                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
-                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Key Features</h5>
-                      <ul className="text-xs text-gray-400 space-y-1 list-disc list-inside">
-                        {proj.features.map((f, i) => (
-                          <li key={i}>{f}</li>
-                        ))}
+                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Key Features</h5>
+                      <ul style={{ color: '#94a3b8', fontSize: '10px', margin: 0, paddingLeft: '15px', lineHeight: '1.4' }}>
+                        {proj.features.map((f, i) => <li key={i}>{f}</li>)}
                       </ul>
                     </div>
                   </div>
-
-                  {proj.baSkills && (
-                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
-                      <h5 className="text-cyan-400 font-semibold text-xs mb-3 text-center">BA Skills Demonstrated</h5>
-                      <div className="flex flex-wrap gap-2 justify-center">
-                        {proj.baSkills.map((s, idx) => (
-                          <span key={idx} className="border border-cyan-500/50 text-cyan-400 text-xs px-3 py-1 rounded-full">
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
               {/* Bottom Footer */}
-              <div className="flex justify-between items-center pt-4 border-t border-cyan-900/30 text-xs">
-                <span className="text-gray-400">
-                  Role: <span className="text-cyan-400 font-medium">{proj.role}</span>
-                </span>
-                <a 
-                  href={proj.github} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="text-cyan-400 hover:underline flex items-center gap-1 font-medium"
-                >
+              <div style={{
+                display: 'flex',
+                justify: 'space-between',
+                borderTop: '1px solid rgba(255,255,255,0.1)',
+                paddingTop: '15px',
+                fontSize: '12px'
+              }}>
+                <span style={{ color: '#94a3b8' }}>Role: <strong style={{ color: '#00d8ff' }}>{proj.role}</strong></span>
+                <a href={proj.github} target="_blank" rel="noreferrer" style={{ color: '#00d8ff', textDecoration: 'none' }}>
                   View Project on GitHub →
                 </a>
               </div>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
 
-      {/* Certifications Section */}
-      <section id="certifications" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-16">Certifications</h2>
+        {/* Certifications Section */}
+        <section id="certifications">
+          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
+            Certifications
+          </h2>
 
-        <div className="space-y-6 max-w-3xl mx-auto">
-          {certifications.map((cert, idx) => (
-            <div key={idx} className="bg-[#0c1220] border border-cyan-500/30 rounded-2xl p-8 text-center space-y-4">
-              <h3 className="text-xl font-bold text-cyan-400">{cert.title}</h3>
-              <p className="text-sm font-semibold text-white">{cert.issuer}</p>
-              <div className="flex flex-wrap gap-3 justify-center pt-2">
-                {cert.tags.map((tag, tIdx) => (
-                  <span key={tIdx} className="border border-cyan-500/40 text-cyan-400 text-xs px-4 py-1.5 rounded-full bg-cyan-950/20">
-                    {tag}
-                  </span>
-                ))}
+          <div style={{ maxWidth: '700px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {certifications.map((cert, idx) => (
+              <div key={idx} style={{
+                backgroundColor: '#0a1120',
+                border: '1px solid rgba(6, 182, 212, 0.4)',
+                borderRadius: '16px',
+                padding: '25px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ color: '#00d8ff', fontSize: '18px', margin: '0 0 8px 0' }}>{cert.title}</h3>
+                <p style={{ color: '#ffffff', fontSize: '13px', fontWeight: 'bold', margin: '0 0 15px 0' }}>{cert.issuer}</p>
+                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  {cert.tags.map((tag, tIdx) => (
+                    <span key={tIdx} style={{
+                      border: '1px solid #00d8ff',
+                      color: '#00d8ff',
+                      fontSize: '11px',
+                      padding: '4px 14px',
+                      borderRadius: '15px',
+                      backgroundColor: 'rgba(0, 216, 255, 0.05)'
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+
+      </div>
     </div>
   );
 }
