@@ -1,4 +1,3 @@
-/* Modern Dark Theme Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,16 +6,15 @@
     scroll-behavior: smooth;
 }
 
-body {
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     background-color: #0b0f17;
     color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-    font-size: 16px;
-    line-height: 1.6;
 }
 
-/* Floating Dots Canvas/Container Across Page */
+/* Fix Floating Dots & Line Overflows */
 .dots-container {
     position: fixed;
     top: 0;
@@ -25,6 +23,7 @@ body {
     height: 100vh;
     pointer-events: none;
     z-index: 1;
+    overflow: hidden;
 }
 
 .dot {
@@ -56,11 +55,12 @@ body {
     100% { transform: translateY(-105vh); opacity: 0; }
 }
 
-/* Layout Structure */
 section {
-    padding: 90px 8%;
+    padding: 90px 5%;
     position: relative;
     z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Navigation Bar */
@@ -68,11 +68,12 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 8%;
+    padding: 20px 5%;
     background: rgba(11, 15, 23, 0.95);
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 210, 255, 0.2);
@@ -179,7 +180,6 @@ nav {
     box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
 }
 
-/* Section Title Styling */
 .section-title {
     text-align: center;
     font-size: 36px;
@@ -188,7 +188,7 @@ nav {
     font-weight: 800;
 }
 
-/* ABOUT SECTION STYLES */
+/* About Section */
 .about-wrapper {
     display: grid;
     grid-template-columns: 320px 1fr;
@@ -296,7 +296,7 @@ nav {
     font-weight: 600;
 }
 
-/* VERTICAL TIMELINE EDUCATION SECTION */
+/* Timeline Education */
 .timeline-container {
     position: relative;
     max-width: 900px;
@@ -408,7 +408,7 @@ nav {
     border: 1px solid rgba(0, 210, 255, 0.3);
 }
 
-/* Tools & Technologies */
+/* Tools */
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -430,7 +430,7 @@ nav {
     font-weight: 700;
 }
 
-/* Projects Section Structure */
+/* Projects */
 .projects-grid {
     display: flex;
     flex-direction: column;
@@ -504,7 +504,7 @@ nav {
 
 .project-img-wrapper img {
     width: 100%;
-    height: 100%;
+    height: auto;
     max-height: 220px;
     object-fit: cover;
     display: block;
@@ -568,7 +568,7 @@ nav {
     text-decoration: underline;
 }
 
-/* Certifications Grid */
+/* Certifications */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -605,7 +605,7 @@ nav {
     margin-bottom: 15px;
 }
 
-/* Career Statement Box */
+/* Statement Box */
 .statement-box {
     background: linear-gradient(135deg, #131924 0%, #0f172a 100%);
     border: 2px solid #00d2ff;
@@ -631,7 +631,7 @@ nav {
     font-weight: 500;
 }
 
-/* Contact Section UI */
+/* Contact Section */
 .contact-container {
     display: flex;
     gap: 25px;
@@ -740,7 +740,6 @@ nav {
     box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
 }
 
-/* Social Icons Floating Bottom */
 .social-links {
     display: flex;
     justify-content: center;

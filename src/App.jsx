@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      {/* Floating Dots Effect across all sections */}
+      {/* Floating Dots Container */}
       <div className="dots-container">
         <span className="dot"></span>
         <span className="dot"></span>
@@ -29,7 +29,7 @@ function App() {
         <span className="dot"></span>
       </div>
 
-      {/* Navigation */}
+      {/* Navbar */}
       <nav>
         <div className="logo">Kavindi Sandaruwani</div>
         <ul className="nav-links">
@@ -43,7 +43,7 @@ function App() {
         </ul>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section id="home" className="hero">
         <h1>Kavindi Sandaruwani</h1>
         <h2>Aspiring Business Analyst | ICT Undergraduate | Problem Solver</h2>
@@ -54,13 +54,13 @@ function App() {
         </div>
       </section>
 
-      {/* About Me Section */}
+      {/* About Section */}
       <section id="about">
         <h2 className="section-title">About Me</h2>
         <div className="about-wrapper">
           <div className="profile-card">
             <div className="profile-img-box">
-              <img src="images/profile.jpg" alt="Kavindi Sandaruwani" />
+              <img src="/images/profile.jpg" alt="Kavindi Sandaruwani" />
             </div>
             <h3>Aspiring Business Analyst</h3>
             <p>Bridging Business Goals with Technology Solutions</p>
@@ -92,7 +92,7 @@ function App() {
         </div>
       </section>
 
-      {/* Education Section */}
+      {/* Education */}
       <section id="education">
         <h2 className="section-title">Education</h2>
         <div className="timeline-container">
@@ -147,7 +147,7 @@ function App() {
         </div>
       </section>
 
-      {/* BA Skills Section */}
+      {/* Skills */}
       <section id="skills">
         <h2 className="section-title">Business Analysis & Professional Skills</h2>
         <div className="skills-grid">
@@ -207,59 +207,7 @@ function App() {
         </div>
       </section>
 
-      {/* Tools & Technologies */}
-      <section id="tools">
-        <h2 className="section-title">Tools & Technologies</h2>
-        <div className="tools-grid">
-          <div className="tool-card">
-            <h4>Business & Analytics</h4>
-            <div className="tags" style={{ justifyContent: 'center' }}>
-              <span className="tag">Power BI</span>
-              <span className="tag">Excel</span>
-              <span className="tag">SQL</span>
-            </div>
-          </div>
-          <div className="tool-card">
-            <h4>Business Analysis</h4>
-            <div className="tags" style={{ justifyContent: 'center' }}>
-              <span className="tag">BRD</span>
-              <span className="tag">FRD</span>
-              <span className="tag">User Stories</span>
-              <span className="tag">Use Cases</span>
-            </div>
-          </div>
-          <div className="tool-card">
-            <h4>Development</h4>
-            <div className="tags" style={{ justifyContent: 'center' }}>
-              <span className="tag">PHP</span>
-              <span className="tag">React</span>
-              <span className="tag">Next.js</span>
-              <span className="tag">Python</span>
-              <span className="tag">Java</span>
-              <span className="tag">HTML/CSS</span>
-            </div>
-          </div>
-          <div className="tool-card">
-            <h4>Database</h4>
-            <div className="tags" style={{ justifyContent: 'center' }}>
-              <span className="tag">MySQL</span>
-              <span className="tag">Oracle</span>
-              <span className="tag">PL/SQL</span>
-            </div>
-          </div>
-          <div className="tool-card">
-            <h4>Project / Design</h4>
-            <div className="tags" style={{ justifyContent: 'center' }}>
-              <span className="tag">Git / GitHub</span>
-              <span className="tag">Figma</span>
-              <span className="tag">Agile</span>
-              <span className="tag">Scrum</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Projects Section */}
+      {/* Projects */}
       <section id="projects">
         <h2 className="section-title">Featured Projects</h2>
         <div className="projects-grid">
@@ -271,7 +219,7 @@ function App() {
             </div>
             <div className="project-banner-grid">
               <div className="project-img-wrapper">
-                <img src="images/crm-dashboard.png" alt="CRM System Dashboard UI" />
+                <img src="/images/crm-dashboard.png" alt="CRM System Dashboard" />
               </div>
               <div>
                 <p className="project-desc">A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.</p>
@@ -321,7 +269,7 @@ function App() {
             </div>
             <div className="project-banner-grid">
               <div className="project-img-wrapper">
-                <img src="images/academicore-login.jpg" alt="AcademiCore Login UI" />
+                <img src="/images/academicore-login.jpg" alt="AcademiCore System" />
               </div>
               <div>
                 <p className="project-desc">A web-based instrument allocation and management system developed for the Faculty of Technology to improve equipment allocation, tracking, and maintenance.</p>
@@ -371,7 +319,7 @@ function App() {
             </div>
             <div className="project-banner-grid">
               <div className="project-img-wrapper">
-                <img src="images/smartmart-pos.jpg" alt="SmartMart POS UI" />
+                <img src="/images/smartmart-pos.jpg" alt="SmartMart POS System" />
               </div>
               <div>
                 <p className="project-desc">A Point of Sale system designed to support retail operations such as product management, sales transactions, inventory monitoring, and reporting.</p>
@@ -421,7 +369,7 @@ function App() {
             </div>
             <div className="project-banner-grid">
               <div className="project-img-wrapper">
-                <img src="images/HR-Analytics-Dashboard.jpg" alt="HR Analytics Dashboard UI" />
+                <img src="/images/HR-Analytics-Dashboard.jpg" alt="HR Analytics Dashboard" />
               </div>
               <div>
                 <p className="project-desc">An interactive HR Analytics Dashboard developed using Microsoft Power BI to transform raw HR data into actionable organizational insights.</p>
@@ -468,7 +416,7 @@ function App() {
         </div>
       </section>
 
-      {/* Certifications Section */}
+      {/* Certifications */}
       <section id="certifications">
         <h2 className="section-title">Certifications</h2>
         <div className="cert-grid">
@@ -554,7 +502,7 @@ function App() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact */}
       <section id="contact">
         <h2 className="section-title">Get In Touch</h2>
         <div className="contact-container">
@@ -590,7 +538,7 @@ function App() {
           </div>
         </div>
 
-        {/* Social Links Container */}
+        {/* Social Icons */}
         <div className="social-links">
           <a href="https://www.linkedin.com/in/kavindi-sandaruwani-057389379" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
