@@ -1,267 +1,837 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Vite image path helper
-const getImgPath = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+export default function App() {
+  const [activeSection, setActiveSection] = useState('home');
 
-// Full Projects Data Dynamic Array
-const projects = [
-  {
-    id: "01",
-    title: "CRM System",
-    category: "Business Management / CRM System",
-    description: "A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.",
-    image: "images/crm-dashboard.png",
-    col1Title: "Problem Identified",
-    col1Content: "Businesses manage customer and sales information across disconnected methods, making it difficult to track leads, tasks, and sales activities.",
-    col2Title: "Proposed Solution",
-    col2Content: "A centralized CRM system that organizes customer information and sales workflows into one unified platform.",
-    col3Title: "Key Features",
-    col3List: [
-      "User authentication & role management",
-      "Lead & customer management",
-      "Kanban-based sales pipeline",
-      "Invoicing & due-date tracking"
-    ],
-    col4Title: "BA Skills Demonstrated",
-    tags: ["Requirement Identification", "Workflow Analysis", "Process Understanding"],
-    roleLabel: "Role:",
-    roleValue: "Business Analysis & System Development",
-    linkText: "View Project on GitHub →",
-    github: "https://github.com/kavindikanishka03-eng"
-  },
-  {
-    id: "02",
-    title: "AcademiCore Instrument Allocation System",
-    category: "Academic / Resource Management",
-    description: "A web-based instrument allocation and management system developed for the Faculty of Technology to improve equipment allocation, tracking, and maintenance.",
-    image: "images/academicore-login.jpg",
-    col1Title: "Problem Identified",
-    col1Content: "Manual instrument management causes difficulty in knowing real-time availability, tracking bookings, and monitoring maintenance.",
-    col2Title: "Proposed Solution",
-    col2Content: "A digital platform for administrators and users to efficiently manage allocation, availability, and QR-based tracking.",
-    col3Title: "Key Features",
-    col3List: [
-      "Instrument booking system",
-      "Real-time availability status",
-      "QR code-based tracking",
-      "Maintenance alerts & reports"
-    ],
-    col4Title: "BA Skills Demonstrated",
-    tags: ["Stakeholder Thinking", "Process Analysis", "Solution Design"],
-    roleLabel: "Role:",
-    roleValue: "Team Member / System Analysis & Development",
-    linkText: "View Project on GitHub →",
-    github: "https://github.com/kavindikanishka03-eng"
-  },
-  {
-    id: "03",
-    title: "SmartMart POS System",
-    category: "Point of Sale / Retail System",
-    description: "A Point of Sale system designed to support retail operations such as product management, sales transactions, inventory monitoring, and reporting.",
-    image: "images/smartmart-pos.jpg",
-    col1Title: "Problem Identified",
-    col1Content: "Retail businesses require integrated operational workflows connecting Products → Inventory → Sales → Customer Reports.",
-    col2Title: "Proposed Solution",
-    col2Content: "A centralized POS platform integrating sales and inventory processes to improve operational visibility and efficiency.",
-    col3Title: "Key Features",
-    col3List: [
-      "Inventory & stock tracking",
-      "Sales processing & records",
-      "Customer management",
-      "Dashboard & reporting"
-    ],
-    col4Title: "BA Skills Demonstrated",
-    tags: ["Process Improvement", "System Planning", "Database Understanding"],
-    roleLabel: "Role:",
-    roleValue: "System Analysis & Development",
-    linkText: "View Project on GitHub →",
-    github: "https://github.com/kavindikanishka03-eng"
-  },
-  {
-    id: "04",
-    title: "HR Analytics Dashboard",
-    category: "Business Intelligence / Data Analytics",
-    description: "An interactive HR Analytics Dashboard developed using Microsoft Power BI to transform raw HR data into actionable organizational insights.",
-    image: "images/HR-Analytics-Dashboard.jpg",
-    col1Title: "Key Insights Covered",
-    col1List: [
-      "Employee Attrition Analysis",
-      "Workforce Demographics",
-      "Job Satisfaction Trends",
-      "Department-wise KPIs"
-    ],
-    col2Title: "Business Value",
-    col2Content: "Helps HR leadership identify workforce trends, monitor metrics, and support strategic data-driven decision-making.",
-    col3Title: "Tools Used",
-    col3Badges: ["Microsoft Power BI", "Excel"],
-    col4Title: "Skills Demonstrated",
-    tags: ["Data Cleaning", "Data Visualization", "KPI Analysis"],
-    roleLabel: "Type:",
-    roleValue: "Power BI Case Study",
-    linkText: "View Dashboard Repository →",
-    github: "https://github.com/kavindikanishka03-eng"
-  }
-];
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'education', 'skills', 'projects', 'certifications', 'contact'];
+      const scrollPosition = window.scrollY + 200;
 
-// Certifications Data Array
-const certifications = [
-  {
-    title: "IBM Business Analytics Professional Certificate",
-    issuer: "IBM / Coursera",
-    tags: ["Business Analytics", "Data Analysis", "Data Visualization"]
-  },
-  {
-    title: "Business Analytics with Excel",
-    issuer: "Simplilearn",
-    tags: ["MS Excel", "Data Analysis", "Data Interpretation"]
-  },
-  {
-    title: "Foundation of Project Management",
-    issuer: "University of Moratuwa – CODL",
-    tags: ["Project Planning", "PM Practices", "ICT Projects"]
-  },
-  {
-    title: "Agile Project Management in ICT Projects",
-    issuer: "University of Moratuwa – CODL",
-    tags: ["Agile Methodology", "Scrum", "Iterative Development"]
-  },
-  {
-    title: "Introduction to Software Testing",
-    issuer: "Simplilearn",
-    tags: ["Software Testing", "Testing Types", "Quality Assurance"]
-  },
-  {
-    title: "AWS Academy Cloud Foundations",
-    issuer: "AWS Academy",
-    tags: ["Cloud Computing", "AWS Infrastructure", "EC2 & S3"]
-  }
-];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
 
-function App() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Message sent successfully!");
-  };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div style={styles.body}>
+    <>
       <style>{`
-        html { scroll-behavior: smooth; }
-        .tag-pill {
-          background: rgba(0, 210, 255, 0.08);
-          color: #00d2ff;
-          padding: 6px 14px;
-          border-radius: 20px;
-          font-size: 13px;
-          font-weight: 500;
-          border: 1px solid rgba(0, 210, 255, 0.3);
-          display: inline-block;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
-        .btn-cyan {
-          background: #00d2ff;
-          color: #050b14;
-          padding: 12px 28px;
-          border-radius: 25px;
-          text-decoration: none;
-          font-weight: 700;
-          font-size: 15px;
-          transition: all 0.3s ease;
-          border: none;
-          cursor: pointer;
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: #0b0f17;
+            color: #ffffff;
         }
-        .btn-cyan:hover {
-          box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
-          transform: translateY(-2px);
+
+        .dots-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
-        .btn-outline {
-          border: 1px solid #00d2ff;
-          color: #00d2ff;
-          padding: 12px 28px;
-          border-radius: 25px;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 15px;
-          transition: all 0.3s ease;
-          background: transparent;
+
+        .dot {
+            position: absolute;
+            bottom: -20px;
+            width: 6px;
+            height: 6px;
+            background-color: #00bcd4;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00bcd4, 0 0 20px #00bcd4;
+            animation: floatUp 8s infinite linear;
+            opacity: 0;
         }
-        .btn-outline:hover {
-          background: rgba(0, 210, 255, 0.1);
-          transform: translateY(-2px);
+
+        .dot:nth-child(1) { left: 8%; animation-duration: 7s; animation-delay: 0s; width: 4px; height: 4px; }
+        .dot:nth-child(2) { left: 22%; animation-duration: 9s; animation-delay: 2s; width: 6px; height: 6px; }
+        .dot:nth-child(3) { left: 38%; animation-duration: 6s; animation-delay: 1s; width: 3px; height: 3px; }
+        .dot:nth-child(4) { left: 55%; animation-duration: 10s; animation-delay: 3s; width: 7px; height: 7px; }
+        .dot:nth-child(5) { left: 72%; animation-duration: 8s; animation-delay: 1.5s; width: 5px; height: 5px; }
+        .dot:nth-child(6) { left: 88%; animation-duration: 11s; animation-delay: 4s; width: 4px; height: 4px; }
+        .dot:nth-child(7) { left: 15%; animation-duration: 8.5s; animation-delay: 2.5s; width: 5px; height: 5px; }
+        .dot:nth-child(8) { left: 45%; animation-duration: 9.5s; animation-delay: 0.5s; width: 4px; height: 4px; }
+        .dot:nth-child(9) { left: 80%; animation-duration: 7.5s; animation-delay: 3.5s; width: 6px; height: 6px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-105vh); opacity: 0; }
         }
-        .card-glow:hover {
-          border-color: rgba(0, 210, 255, 0.5) !important;
-          box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+
+        section {
+            padding: 90px 5%;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .form-input:focus, .form-textarea:focus {
-          border-color: #00d2ff !important;
-          outline: none;
-          box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(11, 15, 23, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #00d2ff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00d2ff;
+        }
+
+        .contact-btn {
+            border: 2px solid #00d2ff;
+            padding: 7px 18px;
+            border-radius: 20px;
+            color: #00d2ff !important;
+            font-weight: 700 !important;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 120px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            color: #00d2ff;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            font-size: 22px;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background: #00d2ff;
+            color: #0b0f17;
+            padding: 13px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-secondary {
+            border: 2px solid #00d2ff;
+            color: #00d2ff;
+            padding: 13px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #00d2ff;
+            margin-bottom: 45px;
+            font-weight: 800;
+        }
+
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 950px) {
+            .about-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-card {
+            background: #131924;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-img-box {
+            position: relative;
+            width: 190px;
+            height: 190px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(135deg, #00d2ff, #00bcd4);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.5);
+        }
+
+        .profile-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .profile-card h3 {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-paragraph {
+            color: #e2e8f0;
+            font-size: 17px;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: #131924;
+            border: 1px solid #1e293b;
+            padding: 22px 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d2ff;
+        }
+
+        .stat-card h4 {
+            font-size: 28px;
+            color: #00d2ff;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 40px;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            width: 3px;
+            background: #00d2ff;
+            box-shadow: 0 0 10px #00d2ff;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -32px;
+            top: 20px;
+            width: 18px;
+            height: 18px;
+            background-color: #0b0f17;
+            border: 3px solid #00d2ff;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #00d2ff;
+            z-index: 2;
+        }
+
+        .edu-card {
+            background: #131924;
+            padding: 28px 32px;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .edu-card:hover {
+            transform: translateY(-3px);
+            border-color: #00d2ff;
+        }
+
+        .edu-card h3 {
+            color: #00d2ff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .edu-card .sub {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .edu-card p {
+            color: #cbd5e1;
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: #131924;
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        .skill-card h3 {
+            color: #00d2ff;
+            margin-bottom: 18px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(0, 210, 255, 0.12);
+            color: #00d2ff;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .project-card {
+            background: #131924;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: #00d2ff;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-title {
+            color: #00d2ff;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .project-type {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 5px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .project-banner-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .project-banner-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-img-wrapper {
+            background: #0b0f17;
+            border-radius: 10px;
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-img-wrapper:hover {
+            transform: scale(1.02);
+            border-color: #00d2ff;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-desc {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .detail-box {
+            background: #0b0f17;
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+        }
+
+        .detail-box h5 {
+            color: #00d2ff;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .detail-box p, .detail-box ul {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 500;
+            list-style-position: inside;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .project-link {
+            color: #00d2ff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background: #131924;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .cert-card:hover {
+            border-color: #00d2ff;
+            transform: translateY(-3px);
+        }
+
+        .cert-card h3 {
+            color: #00d2ff;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .cert-card .issuer {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section Styling */
+        .contact-container {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            flex: 1;
+            min-width: 300px;
+            background: #131924;
+            padding: 35px;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
+        }
+
+        .contact-card h2 {
+            color: #00d2ff;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .contact-card p.desc {
+            color: #cbd5e1;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: #0b0f17;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 15px;
+            border: 1px solid #1e293b;
+            transition: 0.2s;
+        }
+
+        .info-box:hover {
+            border-color: #00d2ff;
+        }
+
+        .icon-circle {
+            background-color: #00d2ff;
+            color: #0b0f17;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .info-label {
+            font-weight: 700;
+            font-size: 15px;
+            display: block;
+            color: #ffffff;
+        }
+
+        .info-val {
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            background-color: #0b0f17;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 14px;
+            color: #fff;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #00d2ff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #00d2ff;
+            color: #0b0f17;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+        }
+
+        /* Social Icons Section (LinkedIn, GitHub, Email icons) */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #00d2ff;
+            color: #0b0f17;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .social-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+            border-top: 1px solid #131924;
+            position: relative;
+            z-index: 2;
         }
       `}</style>
 
-      {/* Navbar */}
-      <nav style={styles.nav}>
-        <div style={styles.logo}>KAVINDI SANDARUWANI</div>
-        <ul style={styles.navLinks}>
-          <li><a href="#home" style={styles.navLink}>Home</a></li>
-          <li><a href="#about" style={styles.navLink}>About</a></li>
-          <li><a href="#education" style={styles.navLink}>Education</a></li>
-          <li><a href="#baskills" style={styles.navLink}>BA Skills</a></li>
-          <li><a href="#projects" style={styles.navLink}>Projects</a></li>
-          <li><a href="#certifications" style={styles.navLink}>Certifications</a></li>
-          <li><a href="#contact" style={{ ...styles.navLink, ...styles.navContactBtn }}>Contact</a></li>
+      {/* Background Floating Dots */}
+      <div className="dots-container">
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+      </div>
+
+      {/* Navigation */}
+      <nav>
+        <div className="logo">Kavindi Sandaruwani</div>
+        <ul className="nav-links">
+          <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
+          <li><a href="#education" className={activeSection === 'education' ? 'active' : ''}>Education</a></li>
+          <li><a href="#skills" className={activeSection === 'skills' ? 'active' : ''}>BA Skills</a></li>
+          <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>Projects</a></li>
+          <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>Certifications</a></li>
+          <li><a href="#contact" className={`contact-btn ${activeSection === 'contact' ? 'active' : ''}`}>Contact</a></li>
         </ul>
       </nav>
 
       {/* Hero Section */}
-      <section id="home" style={styles.heroSection}>
-        <h1 style={styles.heroH1}>Kavindi Sandaruwani</h1>
-        <h2 style={styles.heroH2}>Aspiring Business Analyst | ICT Undergraduate | Problem Solver</h2>
-        <p style={styles.heroP}>
+      <section id="home" className="hero">
+        <h1>Kavindi Sandaruwani</h1>
+        <h2>Aspiring Business Analyst | ICT Undergraduate | Problem Solver</h2>
+        <p>
           I am an ICT undergraduate at the University of Colombo with a strong passion for Business Analysis, Data Analytics, Software Development, and Technology-driven solutions. I bridge the gap between business needs and technical systems.
         </p>
-        <div style={{ display: 'flex', gap: '15px' }}>
-          <a href="#projects" className="btn-cyan">View Featured Projects</a>
-          <a href="#contact" className="btn-outline">Let's Connect</a>
+        <div className="btn-group">
+          <a href="#projects" className="btn-primary">View Featured Projects</a>
+          <a href="#contact" className="btn-secondary">Let's Connect</a>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" style={styles.section}>
-        <h2 style={styles.sectionTitle}>About Me</h2>
-        <div style={styles.aboutGrid}>
-          {/* Profile Card */}
-          <div style={styles.profileCard}>
-            <div style={styles.profileCircleBox}>
-              <img src={getImgPath('images/profile.jpg')} alt="Kavindi" style={styles.profileImg} />
+      <section id="about">
+        <h2 className="section-title">About Me</h2>
+        <div className="about-wrapper">
+          <div className="profile-card">
+            <div className="profile-img-box">
+              <img src="/images/profile.jpg" alt="Kavindi Sandaruwani" />
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '10px 0 5px 0' }}>Aspiring Business Analyst</h3>
-            <p style={{ fontSize: '13px', color: '#94a3b8' }}>Bridging Business Goals with Technology Solutions</p>
+            <h3>Kavindi Sandaruwani</h3>
+            <p>ICT Undergraduate</p>
           </div>
-
-          {/* Details & Counter Cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <p style={styles.aboutText}>
-              I am <strong>Kavindi Sandaruwani</strong>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning. I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
+          <div className="about-content">
+            <p className="about-paragraph">
+              Hello! I'm Kavindi Sandaruwani, an enthusiastic ICT undergraduate at the University of Colombo. My academic journey has equipped me with a solid foundation in software engineering principles, system analysis, and data-driven decision making.
             </p>
-            <p style={styles.aboutText}>
-              I am passionate about using technology to solve real-world problems and creating user-focused, efficient solutions. Through my academic projects and continuous learning, I am developing my skills in software development, database management, data visualization, and business analysis. I am always eager to take on new challenges, expand my knowledge, and grow as a professional in the technology industry.
+            <p className="about-paragraph">
+              I specialize in transforming complex business requirements into clear functional specifications, wireframes, and scalable technical solutions. Whether it's analyzing user workflows, managing databases, or developing software systems, I love solving problems that make an impact.
             </p>
-
-            <div style={styles.counterGrid}>
-              <div className="card-glow" style={styles.counterCard}>
-                <h3 style={styles.counterNum}>3rd Year</h3>
-                <p style={styles.counterLabel}>ICT Undergraduate</p>
+            <div className="stats-grid">
+              <div className="stat-card">
+                <h4>03+</h4>
+                <p>Years of Study</p>
               </div>
-              <div className="card-glow" style={styles.counterCard}>
-                <h3 style={styles.counterNum}>4+</h3>
-                <p style={styles.counterLabel}>Practical Projects</p>
+              <div className="stat-card">
+                <h4>05+</h4>
+                <p>Projects Completed</p>
               </div>
-              <div className="card-glow" style={styles.counterCard}>
-                <h3 style={styles.counterNum}>6+</h3>
-                <p style={styles.counterLabel}>Certifications</p>
+              <div className="stat-card">
+                <h4>100%</h4>
+                <p>Dedication</p>
               </div>
             </div>
           </div>
@@ -269,784 +839,247 @@ function App() {
       </section>
 
       {/* Education Section */}
-      <section id="education" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Education</h2>
-        <div style={styles.timelineContainer}>
-          <div style={styles.timelineLine}></div>
+      <section id="education">
+        <h2 className="section-title">Education</h2>
+        <div className="timeline-container">
+          <div className="timeline-item">
+            <div className="timeline-dot"></div>
+            <div className="edu-card">
+              <h3>University of Colombo</h3>
+              <div className="sub">Bachelor of Information and Communication Technology (BICT)</div>
+              <p>Currently pursuing my undergraduate degree focusing on software development, database management, systems analysis, and modern web architectures.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BA & Technical Skills Section */}
+      <section id="skills">
+        <h2 className="section-title">Core Skills & Expertise</h2>
+        <div className="skills-grid">
+          <div className="skill-card">
+            <h3>Business Analysis</h3>
+            <div className="tags">
+              <span className="tag">Requirement Gathering</span>
+              <span className="tag">Process Modeling</span>
+              <span className="tag">Use Case Diagrams</span>
+              <span className="tag">SWOT Analysis</span>
+              <span className="tag">Agile Methodologies</span>
+              <span className="tag">Stakeholder Management</span>
+            </div>
+          </div>
+          <div className="skill-card">
+            <h3>Technical Skills</h3>
+            <div className="tags">
+              <span className="tag">JavaScript (React)</span>
+              <span className="tag">HTML / CSS</span>
+              <span className="tag">SQL / MySQL</span>
+              <span className="tag">Python</span>
+              <span className="tag">Git & GitHub</span>
+              <span className="tag">UI/UX Wireframing</span>
+            </div>
+          </div>
+          <div className="skill-card">
+            <h3>Tools & Platforms</h3>
+            <div className="tags">
+              <span className="tag">Figma</span>
+              <span className="tag">Visual Studio Code</span>
+              <span className="tag">Jira</span>
+              <span className="tag">Trello</span>
+              <span className="tag">MS Excel / Power BI</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects">
+        <h2 className="section-title">Featured Projects</h2>
+        <div className="projects-grid">
           
-          <div style={styles.timelineItem}>
-            <div style={styles.timelineDot}></div>
-            <div className="card-glow" style={styles.timelineCard}>
-              <h3 style={styles.eduTitle}>Bachelor of Information and Communication Technology (BICT)</h3>
-              <p style={styles.eduSub}>Faculty of Technology, University of Colombo | 3rd Year Undergraduate</p>
-              <p style={styles.eduDesc}>
-                Pursuing a comprehensive degree in Information and Communication Technology, focusing on System Analysis, Software Engineering, Business Analytics, and Data Management.
-              </p>
-              <h5 style={{ color: '#00d2ff', margin: '15px 0 10px 0', fontSize: '14px' }}>Relevant Areas of Knowledge:</h5>
-              <div style={styles.tagsFlex}>
-                {["System Analysis & Design", "Database Management Systems", "Software Engineering", "Software Testing & QA", "Data Analytics", "Business Analytics", "Project Management", "Agile Methodologies", "Cloud Computing", "Web Development"].map((item, i) => (
-                  <span key={i} className="tag-pill">{item}</span>
-                ))}
+          {/* Project 1 */}
+          <div className="project-card">
+            <div className="project-header">
+              <h3 className="project-title">SmartMart POS System</h3>
+              <span className="project-type">Full-Stack Application</span>
+            </div>
+            <div className="project-banner-grid">
+              <div className="project-img-wrapper">
+                <img src="/images/smartmart-pos.jpg" alt="SmartMart POS" />
+              </div>
+              <div className="project-desc">
+                A comprehensive Point of Sale system designed to streamline retail store operations, inventory tracking, cashier billing, and sales reporting with secure user roles.
+              </div>
+            </div>
+            <div className="project-details">
+              <div className="detail-box">
+                <h5>Key Features</h5>
+                <ul>
+                  <li>Real-time inventory stock updates</li>
+                  <li>Barcode scanning & rapid checkout</li>
+                  <li>Daily & monthly sales analytics reports</li>
+                </ul>
+              </div>
+              <div className="detail-box">
+                <h5>Technologies Used</h5>
+                <p>React, Node.js, Express, MySQL, Tailwind CSS</p>
               </div>
             </div>
           </div>
 
-          <div style={styles.timelineItem}>
-            <div style={styles.timelineDot}></div>
-            <div className="card-glow" style={styles.timelineCard}>
-              <h3 style={styles.eduTitle}>Diploma in English</h3>
-              <p style={styles.eduSub}>The Open University of Sri Lanka (OUSL)</p>
-              <p style={styles.eduDesc}>
-                Successfully followed professional studies in English language, communication, and writing skills designed for academic and professional excellence.
-              </p>
+          {/* Project 2 */}
+          <div className="project-card">
+            <div className="project-header">
+              <h3 className="project-title">AcademiCore Portal</h3>
+              <span className="project-type">Web Application</span>
             </div>
-          </div>
-
-          <div style={styles.timelineItem}>
-            <div style={styles.timelineDot}></div>
-            <div className="card-glow" style={styles.timelineCard}>
-              <h3 style={styles.eduTitle}>Diploma in English Language</h3>
-              <p style={styles.eduSub}>Britishway English Academy</p>
-              <p style={styles.eduDesc}>
-                Completed intensive training in spoken English, corporate communication, presentation skills, and professional writing.
-              </p>
-            </div>
-          </div>
-
-          <div style={styles.timelineItem}>
-            <div style={styles.timelineDot}></div>
-            <div className="card-glow" style={styles.timelineCard}>
-              <h3 style={styles.eduTitle}>G.C.E. Advanced Level – Technology Stream</h3>
-              <p style={styles.eduSub}>Secondary Education</p>
-              <p style={styles.eduDesc}>
-                Successfully completed Advanced Level examination in the Technology stream, laying a strong foundation in Engineering Technology, Information Technology, and Science for Technology.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BA Skills Section */}
-      <section id="baskills" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Business Analysis & Professional Skills</h2>
-        <div style={styles.skillsGrid}>
-          <div className="card-glow" style={styles.skillCategoryCard}>
-            <h3 style={styles.skillCategoryTitle}>📋 Business Analysis</h3>
-            <div style={styles.skillsColumnFlex}>
-              {["Requirements Gathering", "Requirements Analysis", "Business Problem Identification", "Business Process Analysis", "Stakeholder Analysis", "Functional Requirements", "Non-Functional Requirements", "User Stories", "Use Cases", "Process Improvement", "System Analysis"].map((sk, i) => (
-                <span key={i} className="tag-pill">{sk}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.skillCategoryCard}>
-            <h3 style={styles.skillCategoryTitle}>📊 Data & Business Analytics</h3>
-            <div style={styles.skillsColumnFlex}>
-              {["Microsoft Excel", "Microsoft Power BI", "Data Visualization", "Dashboard Development", "Data-driven Decision Making", "HR Analytics", "Business Intelligence"].map((sk, i) => (
-                <span key={i} className="tag-pill">{sk}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.skillCategoryCard}>
-            <h3 style={styles.skillCategoryTitle}>📌 Project & Agile</h3>
-            <div style={styles.skillsColumnFlex}>
-              {["Agile Methodology", "Scrum", "Project Planning", "Team Collaboration", "Requirement Documentation", "SDLC"].map((sk, i) => (
-                <span key={i} className="tag-pill">{sk}</span>
-              ))}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.skillCategoryCard}>
-            <h3 style={styles.skillCategoryTitle}>🧪 QA / Testing</h3>
-            <div style={styles.skillsColumnFlex}>
-              {["Software Testing Fundamentals", "Functional Testing", "Non-functional Testing", "Test Case Design", "Quality Assurance"].map((sk, i) => (
-                <span key={i} className="tag-pill">{sk}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools & Technologies */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Tools & Technologies</h2>
-        <div style={styles.toolsGrid}>
-          <div className="card-glow" style={styles.toolCard}>
-            <h4 style={styles.toolCardTitle}>Business & Analytics</h4>
-            <div style={styles.tagsFlexCenter}>
-              {["Power BI", "Excel", "SQL"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.toolCard}>
-            <h4 style={styles.toolCardTitle}>Business Analysis</h4>
-            <div style={styles.tagsFlexCenter}>
-              {["BRD", "FRD", "User Stories", "Use Cases"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.toolCard}>
-            <h4 style={styles.toolCardTitle}>Development</h4>
-            <div style={styles.tagsFlexCenter}>
-              {["PHP", "React", "Next.js", "Python", "Java", "HTML/CSS"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.toolCard}>
-            <h4 style={styles.toolCardTitle}>Database</h4>
-            <div style={styles.tagsFlexCenter}>
-              {["MySQL", "Oracle", "PL/SQL"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-            </div>
-          </div>
-          <div className="card-glow" style={styles.toolCard}>
-            <h4 style={styles.toolCardTitle}>Project / Design</h4>
-            <div style={styles.tagsFlexCenter}>
-              {["Git / GitHub", "Figma", "Agile", "Scrum"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Projects Section */}
-      <section id="projects" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Featured Projects</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-          {projects.map((proj) => (
-            <div key={proj.id} className="card-glow" style={styles.projectMainCard}>
-              <div style={styles.projectHeaderRow}>
-                <h3 style={{ color: '#00d2ff', fontSize: '22px', fontWeight: 700 }}>
-                  🚀 {proj.id}. {proj.title}
-                </h3>
-                <span style={styles.categoryBadge}>{proj.category}</span>
+            <div className="project-banner-grid">
+              <div className="project-img-wrapper">
+                <img src="/images/academicore-login.jpg" alt="AcademiCore Portal" />
               </div>
-
-              <div style={styles.projectTopGrid}>
-                <div style={styles.projectImgBox}>
-                  <img src={getImgPath(proj.image)} alt={proj.title} style={styles.projectImg} />
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <p style={{ color: '#cbd5e1', fontSize: '15px', lineHeight: 1.6 }}>{proj.description}</p>
-                </div>
-              </div>
-
-              <div style={styles.projectInnerGrid}>
-                <div style={styles.innerBox}>
-                  <h5 style={styles.innerBoxTitle}>{proj.col1Title}</h5>
-                  {proj.col1Content && <p style={styles.innerBoxP}>{proj.col1Content}</p>}
-                  {proj.col1List && (
-                    <ul style={styles.innerList}>
-                      {proj.col1List.map((li, i) => <li key={i}>{li}</li>)}
-                    </ul>
-                  )}
-                </div>
-
-                <div style={styles.innerBox}>
-                  <h5 style={styles.innerBoxTitle}>{proj.col2Title}</h5>
-                  <p style={styles.innerBoxP}>{proj.col2Content}</p>
-                </div>
-
-                <div style={styles.innerBox}>
-                  <h5 style={styles.innerBoxTitle}>{proj.col3Title}</h5>
-                  {proj.col3List && (
-                    <ul style={styles.innerList}>
-                      {proj.col3List.map((li, i) => <li key={i}>{li}</li>)}
-                    </ul>
-                  )}
-                  {proj.col3Badges && (
-                    <div style={styles.tagsFlex}>
-                      {proj.col3Badges.map((b, i) => <span key={i} className="tag-pill">{b}</span>)}
-                    </div>
-                  )}
-                </div>
-
-                <div style={styles.innerBox}>
-                  <h5 style={styles.innerBoxTitle}>{proj.col4Title}</h5>
-                  <div style={styles.tagsFlex}>
-                    {proj.tags.map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-                  </div>
-                </div>
-              </div>
-
-              <div style={styles.projectFooterRow}>
-                <div>
-                  <span style={{ color: '#94a3b8', fontSize: '14px' }}>{proj.roleLabel} </span>
-                  <span style={{ color: '#00d2ff', fontSize: '14px', fontWeight: 600 }}>{proj.roleValue}</span>
-                </div>
-                <a href={proj.github} target="_blank" rel="noreferrer" style={styles.githubLink}>
-                  {proj.linkText}
-                </a>
+              <div className="project-desc">
+                An academic management platform created to bridge communication between lecturers and students, handling assignment submissions, grading, and course modules.
               </div>
             </div>
-          ))}
+            <div className="project-details">
+              <div className="detail-box">
+                <h5>Key Features</h5>
+                <ul>
+                  <li>Role-based access (Admin, Lecturer, Student)</li>
+                  <li>Assignment upload and deadline trackers</li>
+                  <li>Announcement broadcasting board</li>
+                </ul>
+              </div>
+              <div className="detail-box">
+                <h5>Technologies Used</h5>
+                <p>React, JavaScript, PHP, MySQL</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Project 3 */}
+          <div className="project-card">
+            <div className="project-header">
+              <h3 className="project-title">HR Analytics Dashboard</h3>
+              <span className="project-type">Data Analytics Project</span>
+            </div>
+            <div className="project-banner-grid">
+              <div className="project-img-wrapper">
+                <img src="/images/HR-Analytics-Dashboard.jpg" alt="HR Analytics Dashboard" />
+              </div>
+              <div className="project-desc">
+                An interactive corporate analytics dashboard visualizing employee performance, attrition rates, departmental salary metrics, and employee satisfaction trends.
+              </div>
+            </div>
+            <div className="project-details">
+              <div className="detail-box">
+                <h5>Key Features</h5>
+                <ul>
+                  <li>Interactive data filtering and drill-downs</li>
+                  <li>Turnover rate forecasting graphs</li>
+                  <li>Executive summary KPI metric cards</li>
+                </ul>
+              </div>
+              <div className="detail-box">
+                <h5>Technologies Used</h5>
+                <p>Power BI, Python (Pandas), Excel</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Certifications</h2>
-        <div style={styles.certGrid}>
-          {certifications.map((cert, index) => (
-            <div key={index} className="card-glow" style={styles.certCard}>
-              <h3 style={styles.certTitle}>{cert.title}</h3>
-              <p style={styles.certIssuer}>{cert.issuer}</p>
-              <div style={{ ...styles.tagsFlex, marginTop: '20px' }}>
-                {cert.tags.map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
-              </div>
+      <section id="certifications">
+        <h2 className="section-title">Certifications & Training</h2>
+        <div className="cert-grid">
+          <div className="cert-card">
+            <div>
+              <h3>Foundations of Business Analysis</h3>
+              <div className="issuer">Coursera / Industry Recognized</div>
             </div>
-          ))}
+          </div>
+          <div className="cert-card">
+            <div>
+              <h3>Agile Project Management</h3>
+              <div className="issuer">LinkedIn Learning</div>
+            </div>
+          </div>
+          <div className="cert-card">
+            <div>
+              <h3>Python for Data Analysis</h3>
+              <div className="issuer">University Certified</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Business Analyst Career Statement Section */}
-      <section style={styles.section}>
-        <div className="card-glow" style={styles.careerStatementCard}>
-          <h3 style={styles.careerTitle}>🎯 Business Analyst Career Statement</h3>
-          <p style={styles.careerDesc}>
-            I am currently building my career toward Business Analysis, with a focus on understanding business problems, analyzing requirements, improving processes, and using data and technology to develop practical solutions. My combination of ICT knowledge, business analytics experience, project management knowledge, and hands-on system development projects allows me to understand both business needs and technical solutions.
-          </p>
-        </div>
-      </section>
-
-      {/* Get In Touch & Contact Section */}
-      <section id="contact" style={styles.section}>
-        <h2 style={styles.sectionTitle}>Get In Touch</h2>
-        <div style={styles.contactGrid}>
-          {/* Let's Connect Info Card */}
-          <div className="card-glow" style={styles.contactInfoCard}>
-            <h3 style={{ color: '#00d2ff', fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>Let's Connect</h3>
-            <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: 1.6, marginBottom: '25px' }}>
+      {/* Contact Section */}
+      <section id="contact">
+        <h2 className="section-title">Get In Touch</h2>
+        <div className="contact-container">
+          
+          {/* Let's Connect Card */}
+          <div className="contact-card">
+            <h2>Let's Connect</h2>
+            <p className="desc">
               I'm always interested in discussing new opportunities, business analysis projects, collaborations, or technology-driven solutions.
             </p>
-
-            <div style={styles.contactDetailBox}>
-              <div style={styles.contactIconCircle}>✉️</div>
+            
+            <a href="mailto:kavindi.sandaruwani@gmail.com" className="info-box">
+              <div className="icon-circle">@</div>
               <div>
-                <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600 }}>Email</div>
-                <div style={{ fontSize: '14px', color: '#ffffff' }}>kavindi.sandaruwani@gmail.com</div>
+                <span className="info-label">Email</span>
+                <span className="info-val">kavindi.sandaruwani@gmail.com</span>
               </div>
-            </div>
+            </a>
 
-            <div style={styles.contactDetailBox}>
-              <div style={styles.contactIconCircle}>📍</div>
+            <div className="info-box">
+              <div className="icon-circle">📍</div>
               <div>
-                <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600 }}>Location</div>
-                <div style={{ fontSize: '14px', color: '#ffffff' }}>Sri Lanka</div>
+                <span className="info-label">Location</span>
+                <span className="info-val">Sri Lanka</span>
               </div>
             </div>
           </div>
 
-          {/* Send me a message Form Card */}
-          <div className="card-glow" style={styles.contactFormCard}>
-            <h3 style={{ color: '#00d2ff', fontSize: '20px', fontWeight: 700, marginBottom: '20px' }}>Send me a message</h3>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <input 
-                type="text" 
-                placeholder="Your Name" 
-                className="form-input"
-                style={styles.inputField}
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                required
-              />
-              <input 
-                type="email" 
-                placeholder="Your Email" 
-                className="form-input"
-                style={styles.inputField}
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                required
-              />
-              <textarea 
-                placeholder="Your Message" 
-                className="form-textarea"
-                style={styles.textAreaField}
-                rows="5"
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-                required
-              ></textarea>
-              <button type="submit" className="btn-cyan" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
-                ✈️ Send Message
-              </button>
+          {/* Send Message Form */}
+          <div className="contact-card">
+            <h2>Send me a message</h2>
+            <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert('Message sent successfully!'); }}>
+              <input type="text" placeholder="Your Name" required />
+              <input type="email" placeholder="Your Email" required />
+              <textarea placeholder="Your Message" rows="4" required></textarea>
+              <button type="submit" className="submit-btn">✈ Send Message</button>
             </form>
           </div>
+
         </div>
 
-        {/* Social Icons Footer Row */}
-        <div style={styles.socialIconsRow}>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={styles.socialCircle}>in</a>
-          <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" style={styles.socialCircle}>git</a>
-          <a href="mailto:kavindi.sandaruwani@gmail.com" style={styles.socialCircle}>✉</a>
+        {/* Social Link Icons (LinkedIn, GitHub, Email) */}
+        <div className="social-links">
+          {/* LinkedIn Icon */}
+          <a href="https://www.linkedin.com/in/kavindi-sandaruwani-057389379" target="_blank" rel="noopener noreferrer" className="social-icon" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </a>
+          
+          {/* GitHub Icon */}
+          <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noopener noreferrer" className="social-icon" title="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          </a>
+
+          {/* Email Icon */}
+          <a href="mailto:kavindi.sandaruwani@gmail.com" className="social-icon" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
         </div>
       </section>
 
-      {/* Footer copyright */}
-      <footer style={styles.footer}>
-        <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>© 2026 Kavindi Sandaruwani. All rights reserved.</p>
+      {/* Footer */}
+      <footer>
+        <p>© 2026 Kavindi Sandaruwani. All Rights Reserved.</p>
       </footer>
-    </div>
+    </>
   );
 }
-
-// Inline Styling Config matching images exactly
-const styles = {
-  body: {
-    backgroundColor: '#050b14',
-    color: '#ffffff',
-    fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    minHeight: '100vh',
-    margin: 0,
-    padding: 0
-  },
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '18px 6%',
-    backgroundColor: '#050b14',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-    position: 'fixed',
-    top: 0,
-    width: '100%',
-    zIndex: 1000,
-    boxSizing: 'border-box'
-  },
-  logo: {
-    color: '#00d2ff',
-    fontWeight: 800,
-    fontSize: '18px',
-    letterSpacing: '1px'
-  },
-  navLinks: {
-    display: 'flex',
-    listStyle: 'none',
-    gap: '20px',
-    alignItems: 'center',
-    margin: 0,
-    padding: 0
-  },
-  navLink: {
-    color: '#cbd5e1',
-    textDecoration: 'none',
-    fontSize: '14px',
-    fontWeight: 500
-  },
-  navContactBtn: {
-    border: '1px solid #00d2ff',
-    padding: '6px 18px',
-    borderRadius: '20px',
-    color: '#00d2ff'
-  },
-  heroSection: {
-    minHeight: '90vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: '120px 10% 40px 10%'
-  },
-  heroH1: {
-    fontSize: '48px',
-    color: '#00d2ff',
-    fontWeight: 800,
-    marginBottom: '10px'
-  },
-  heroH2: {
-    fontSize: '20px',
-    color: '#ffffff',
-    fontWeight: 600,
-    marginBottom: '25px'
-  },
-  heroP: {
-    color: '#94a3b8',
-    maxWidth: '780px',
-    lineHeight: 1.7,
-    fontSize: '15px',
-    marginBottom: '35px'
-  },
-  section: {
-    padding: '70px 6%'
-  },
-  sectionTitle: {
-    textAlign: 'center',
-    fontSize: '32px',
-    color: '#00d2ff',
-    fontWeight: 800,
-    marginBottom: '45px'
-  },
-  aboutGrid: {
-    display: 'grid',
-    gridTemplateColumns: '280px 1fr',
-    gap: '40px',
-    alignItems: 'start'
-  },
-  profileCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '30px 20px',
-    textAlign: 'center'
-  },
-  profileCircleBox: {
-    width: '150px',
-    height: '150px',
-    borderRadius: '50%',
-    margin: '0 auto',
-    padding: '4px',
-    background: 'linear-gradient(135deg, #00d2ff, #0055ff)'
-  },
-  profileImg: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: '50%'
-  },
-  aboutText: {
-    color: '#cbd5e1',
-    lineHeight: 1.7,
-    fontSize: '14px'
-  },
-  counterGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '15px',
-    marginTop: '10px'
-  },
-  counterCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    padding: '20px 10px',
-    borderRadius: '12px',
-    textAlign: 'center'
-  },
-  counterNum: {
-    color: '#00d2ff',
-    fontSize: '24px',
-    fontWeight: 800,
-    margin: '0 0 5px 0'
-  },
-  counterLabel: {
-    color: '#94a3b8',
-    fontSize: '12px',
-    margin: 0
-  },
-  timelineContainer: {
-    position: 'relative',
-    maxWidth: '900px',
-    margin: '0 auto',
-    paddingLeft: '30px'
-  },
-  timelineLine: {
-    position: 'absolute',
-    left: '8px',
-    top: '15px',
-    bottom: '15px',
-    width: '2px',
-    background: '#00d2ff'
-  },
-  timelineItem: {
-    position: 'relative',
-    marginBottom: '25px'
-  },
-  timelineDot: {
-    position: 'absolute',
-    left: '-30px',
-    top: '20px',
-    width: '14px',
-    height: '14px',
-    borderRadius: '50%',
-    background: '#050b14',
-    border: '2px solid #00d2ff'
-  },
-  timelineCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '12px',
-    padding: '25px'
-  },
-  eduTitle: {
-    color: '#00d2ff',
-    fontSize: '18px',
-    margin: '0 0 5px 0',
-    fontWeight: 700
-  },
-  eduSub: {
-    color: '#ffffff',
-    fontSize: '13px',
-    fontWeight: 600,
-    marginBottom: '10px'
-  },
-  eduDesc: {
-    color: '#94a3b8',
-    fontSize: '14px',
-    lineHeight: 1.6,
-    margin: 0
-  },
-  skillsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-    gap: '20px'
-  },
-  skillCategoryCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '14px',
-    padding: '22px'
-  },
-  skillCategoryTitle: {
-    color: '#ffffff',
-    fontSize: '16px',
-    fontWeight: 700,
-    marginBottom: '15px'
-  },
-  skillsColumnFlex: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: '8px'
-  },
-  toolsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '15px'
-  },
-  toolCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '12px',
-    padding: '20px',
-    textAlign: 'center'
-  },
-  toolCardTitle: {
-    color: '#00d2ff',
-    fontSize: '15px',
-    fontWeight: 700,
-    marginBottom: '12px'
-  },
-  tagsFlex: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '8px'
-  },
-  tagsFlexCenter: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '8px',
-    justifyContent: 'center'
-  },
-  projectMainCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '30px'
-  },
-  projectHeaderRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '20px'
-  },
-  categoryBadge: {
-    background: '#131e32',
-    color: '#94a3b8',
-    padding: '4px 12px',
-    borderRadius: '12px',
-    fontSize: '12px'
-  },
-  projectTopGrid: {
-    display: 'grid',
-    gridTemplateColumns: '320px 1fr',
-    gap: '25px',
-    marginBottom: '25px'
-  },
-  projectImgBox: {
-    borderRadius: '10px',
-    overflow: 'hidden',
-    border: '1px solid #1e293b'
-  },
-  projectImg: {
-    width: '100%',
-    height: '100%',
-    maxHeight: '180px',
-    objectFit: 'cover',
-    display: 'block'
-  },
-  projectInnerGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '15px',
-    marginBottom: '20px'
-  },
-  innerBox: {
-    background: '#050b14',
-    border: '1px solid #1e293b',
-    borderRadius: '10px',
-    padding: '16px'
-  },
-  innerBoxTitle: {
-    color: '#00d2ff',
-    fontSize: '14px',
-    fontWeight: 700,
-    marginBottom: '10px'
-  },
-  innerBoxP: {
-    color: '#94a3b8',
-    fontSize: '13px',
-    lineHeight: 1.5,
-    margin: 0
-  },
-  innerList: {
-    color: '#94a3b8',
-    fontSize: '13px',
-    lineHeight: 1.6,
-    paddingLeft: '16px',
-    margin: 0
-  },
-  projectFooterRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: '15px',
-    borderTop: '1px solid #1e293b'
-  },
-  githubLink: {
-    color: '#00d2ff',
-    textDecoration: 'none',
-    fontSize: '14px',
-    fontWeight: 600
-  },
-  certGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-    gap: '25px'
-  },
-  certCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '25px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  certTitle: {
-    color: '#00d2ff',
-    fontSize: '18px',
-    fontWeight: 700,
-    marginBottom: '8px'
-  },
-  certIssuer: {
-    color: '#ffffff',
-    fontSize: '14px',
-    fontWeight: 600,
-    margin: 0
-  },
-  careerStatementCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '40px',
-    textAlign: 'center',
-    maxWidth: '900px',
-    margin: '0 auto'
-  },
-  careerTitle: {
-    color: '#00d2ff',
-    fontSize: '22px',
-    fontWeight: 700,
-    marginBottom: '20px'
-  },
-  careerDesc: {
-    color: '#cbd5e1',
-    fontSize: '15px',
-    lineHeight: 1.8,
-    margin: 0
-  },
-  contactGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-    gap: '30px',
-    maxWidth: '1000px',
-    margin: '0 auto'
-  },
-  contactInfoCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '30px'
-  },
-  contactFormCard: {
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    borderRadius: '16px',
-    padding: '30px'
-  },
-  contactDetailBox: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    background: '#050b14',
-    border: '1px solid #1e293b',
-    borderRadius: '12px',
-    padding: '15px',
-    marginBottom: '15px'
-  },
-  contactIconCircle: {
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    background: 'rgba(0, 210, 255, 0.1)',
-    color: '#00d2ff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px'
-  },
-  inputField: {
-    background: '#050b14',
-    border: '1px solid #1e293b',
-    borderRadius: '10px',
-    padding: '14px',
-    color: '#ffffff',
-    fontSize: '14px',
-    width: '100%',
-    boxSizing: 'border-box'
-  },
-  textAreaField: {
-    background: '#050b14',
-    border: '1px solid #1e293b',
-    borderRadius: '10px',
-    padding: '14px',
-    color: '#ffffff',
-    fontSize: '14px',
-    width: '100%',
-    boxSizing: 'border-box',
-    resize: 'vertical'
-  },
-  socialIconsRow: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '20px',
-    marginTop: '40px'
-  },
-  socialCircle: {
-    width: '42px',
-    height: '42px',
-    borderRadius: '50%',
-    background: '#0a111e',
-    border: '1px solid #1e293b',
-    color: '#00d2ff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    fontSize: '15px',
-    transition: 'all 0.3s ease'
-  },
-  footer: {
-    textAlign: 'center',
-    padding: '30px 20px',
-    borderTop: '1px solid #1e293b',
-    marginTop: '50px'
-  }
-};
-
-export default App;
