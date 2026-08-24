@@ -1,55 +1,16 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #0b0f17;
-  --border: #2e303a;
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  color-scheme: dark;
-  color: var(--text);
-  background-color: #0b0f17;
-}
-
-html, body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
-  background-color: #0b0f17 !important;
-}
-
-/* Sudu iri ain kireema saha Layout alignment fix kireema */
-#root {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-sizing: border-box;
-  background-color: #0b0f17;
-}
-
-/* Image styling reset */
-img {
-  max-width: 100%;
-  height: auto;
-  display: inline-block;
-}
-
-h1, h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-}
-
-p {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #0b0f17;
+  color: #ffffff;
 }

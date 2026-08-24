@@ -1,565 +1,271 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import { 
+  Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download, Code, Database, Globe, Cpu, Layout, Server, Award, ChevronRight, Menu, X 
+} from 'lucide-react';
 
 function App() {
-  const [viewCount, setViewCount] = useState('...');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetch('https://api.countapi.xyz/hit/kavindi-portfolio/views')
-      .then(response => response.json())
-      .then(data => setViewCount(data.value))
-      .catch(error => {
-        console.error('Error fetching view count:', error);
-        setViewCount('41');
-      });
-  }, []);
+  const projects = [
+    {
+      title: "CRM System Dashboard",
+      description: "A comprehensive Customer Relationship Management dashboard built to streamline business workflows, track leads, and analyze sales performance in real-time.",
+      tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+      github: "https://github.com/Kavindi-Sandaruwani/CRM-System",
+      live: "https://kavindi-sandaruwani.github.io/CRM-System/",
+      image: "./images/crm-dashboard.png"
+    },
+    {
+      title: "AcademiCore - Student Management System",
+      description: "A robust full-stack web application designed for educational institutions to manage student records, course enrollments, and academic performance tracking efficiently.",
+      tech: ["PHP", "MySQL", "Bootstrap", "JavaScript", "HTML/CSS"],
+      github: "https://github.com/Kavindi-Sandaruwani/AcademiCore-Student-Management-System",
+      live: "https://kavindi-sandaruwani.github.io/AcademiCore-Student-Management-System/",
+      image: "./images/academicore-login.jpg"
+    },
+    {
+      title: "SmartMart POS System",
+      description: "A desktop Point of Sale (POS) application built for retail stores, featuring automated inventory tracking, billing management, and sales reporting.",
+      tech: ["Java", "JavaFX", "MySQL", "JDBC"],
+      github: "https://github.com/Kavindi-Sandaruwani/SmartMart-POS-System",
+      live: "https://kavindi-sandaruwani.github.io/SmartMart-POS-System/",
+      image: "./images/smartmart-pos.jpg"
+    },
+    {
+      title: "HR Analytics Dashboard",
+      description: "An interactive Power BI dashboard visualizing key human resource metrics including employee attrition, performance trends, and workforce demographics.",
+      tech: ["Power BI", "DAX", "Data Modeling", "Excel"],
+      github: "https://github.com/Kavindi-Sandaruwani/HR-Analytics-Dashboard",
+      live: "https://kavindi-sandaruwani.github.io/HR-Analytics-Dashboard/",
+      image: "./images/HR-Analytics-Dashboard.jpg"
+    }
+  ];
+
+  const skills = {
+    "Programming Languages": ["Java", "Python", "JavaScript", "PHP", "C++", "SQL"],
+    "Web Technologies": ["React", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Node.js", "Express.js"],
+    "Databases & Tools": ["MySQL", "MongoDB", "Git & GitHub", "Visual Studio Code", "Power BI", "Figma"]
+  };
+
+  const certifications = [
+    { name: "Full Stack Web Development", issuer: "University of Moratuwa (CODL)", year: "2023" },
+    { name: "Python for Beginners", issuer: "University of Moratuwa (CODL)", year: "2023" },
+    { name: "Java Programming", issuer: "HackerRank", year: "2023" },
+    { name: "SQL (Basic & Intermediate)", issuer: "HackerRank", year: "2023" }
+  ];
 
   return (
-    <>
-      {/* Floating Dots Container */}
-      <div className="dots-container">
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-        <span className="dot"></span>
-      </div>
+    <div className="min-h-screen bg-[#0b0f17] text-gray-200 font-sans selection:bg-cyan-500 selection:text-black">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 bg-[#0b0f17]/80 backdrop-blur-md border-b border-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Kavindi.dev
+            </span>
+            
+            <div className="hidden md:flex space-x-8 text-sm font-medium">
+              <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
+              <a href="#skills" className="hover:text-cyan-400 transition-colors">Skills</a>
+              <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
+              <a href="#certifications" className="hover:text-cyan-400 transition-colors">Certifications</a>
+              <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
+            </div>
 
-      {/* Navbar */}
-      <nav>
-        <div className="logo">Kavindi Sandaruwani</div>
-        <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#skills">BA Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#certifications">Certifications</a></li>
-          <li><a href="#contact" className="contact-btn">Contact</a></li>
-        </ul>
+            <button 
+              className="md:hidden text-gray-400 hover:text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden bg-[#111827] border-b border-gray-800 px-4 pt-2 pb-4 space-y-2">
+            <a href="#about" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">About</a>
+            <a href="#skills" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Skills</a>
+            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Projects</a>
+            <a href="#certifications" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Certifications</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Contact</a>
+          </div>
+        )}
       </nav>
 
-      {/* Hero */}
-      <section id="home" className="hero">
-        <h1>Kavindi Sandaruwani</h1>
-        <h2>Aspiring Business Analyst | ICT Undergraduate | Problem Solver</h2>
-        <p>I am an ICT undergraduate at the University of Colombo with a strong passion for Business Analysis, Data Analytics, Software Development, and Technology-driven solutions. I bridge the gap between business needs and technical systems.</p>
-        <div className="btn-group">
-          <a href="#projects" className="btn-primary">View Featured Projects</a>
-          <a href="#contact" className="btn-secondary">Let's Connect</a>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about">
-        <h2 className="section-title">About Me</h2>
-        <div className="about-wrapper">
-          <div className="profile-card">
-            <div className="profile-img-box">
-              <img src="/images/profile.jpg" alt="Kavindi Sandaruwani" />
-            </div>
-            <h3>Aspiring Business Analyst</h3>
-            <p>Bridging Business Goals with Technology Solutions</p>
+      {/* Hero / About Section */}
+      <section id="about" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="w-48 h-48 md:w-64 md:h-64 relative flex-shrink-0">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 blur-lg opacity-40 animate-pulse"></div>
+            <img 
+              src="./images/profile.jpg" 
+              alt="Kavindi Sandaruwani" 
+              className="w-full h-full object-cover rounded-full relative z-10 border-2 border-cyan-500/50 shadow-2xl"
+            />
           </div>
 
-          <div className="about-content">
-            <p className="about-paragraph">
-              I am <strong>Kavindi Sandaruwani</strong>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning. I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
-            </p>
-            <p className="about-paragraph">
-              I am passionate about using technology to solve real-world problems and creating user-focused, efficient solutions. Through my academic projects and continuous learning, I am developing my skills in software development, database management, data visualization, and business analysis. I am always eager to take on new challenges, expand my knowledge, and grow as a professional in the technology industry.
+          <div className="flex-1 text-center md:text-left space-y-4">
+            <h2 className="text-cyan-400 font-medium tracking-wide">Hello, I'm</h2>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Kavindi Sandaruwani
+            </h1>
+            <h3 className="text-xl sm:text-2xl text-gray-400 font-medium">
+              Software Engineering Undergraduate
+            </h3>
+            <p className="text-gray-400 max-w-2xl leading-relaxed">
+              Passionate IT undergraduate specializing in full-stack web development, database management, and software solution architecture. Adept at building responsive, user-friendly applications using modern technologies.
             </p>
 
-            <div className="stats-grid">
-              <div className="stat-card">
-                <h4>3rd Year</h4>
-                <p>ICT Undergraduate</p>
-              </div>
-              <div className="stat-card">
-                <h4>4+</h4>
-                <p>Practical Projects</p>
-              </div>
-              <div className="stat-card">
-                <h4>6+</h4>
-                <p>Certifications</p>
-              </div>
+            <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+              <a 
+                href="#contact" 
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+              >
+                Get In Touch <ChevronRight size={18} />
+              </a>
+              <a 
+                href="https://github.com/Kavindi-Sandaruwani" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="px-6 py-3 rounded-lg bg-gray-800 border border-gray-700 hover:border-cyan-500/50 text-gray-200 transition-colors flex items-center gap-2"
+              >
+                <Github size={18} /> GitHub
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Education */}
-      <section id="education">
-        <h2 className="section-title">Education</h2>
-        <div className="timeline-container">
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="edu-card">
-              <h3>Bachelor of Information and Communication Technology (BICT)</h3>
-              <div className="sub">Faculty of Technology, University of Colombo | 3rd Year Undergraduate</div>
-              <p style={{ marginBottom: '12px' }}>Pursuing a comprehensive degree in Information and Communication Technology, focusing on System Analysis, Software Engineering, Business Analytics, and Data Management.</p>
-              <h5 style={{ color: '#00d2ff', marginBottom: '10px', fontSize: '15px', fontWeight: 700 }}>Relevant Areas of Knowledge:</h5>
-              <div className="tags">
-                <span className="tag">System Analysis & Design</span>
-                <span className="tag">Database Management Systems</span>
-                <span className="tag">Software Engineering</span>
-                <span className="tag">Software Testing & QA</span>
-                <span className="tag">Data Analytics</span>
-                <span className="tag">Business Analytics</span>
-                <span className="tag">Project Management</span>
-                <span className="tag">Agile Methodologies</span>
-                <span className="tag">Cloud Computing</span>
-                <span className="tag">Web Development</span>
+      {/* Skills Section */}
+      <section id="skills" className="py-20 bg-[#0e1420] border-y border-gray-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
+            <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {Object.entries(skills).map(([category, items], idx) => (
+              <div key={idx} className="bg-[#131b2e] p-6 rounded-xl border border-gray-800 hover:border-cyan-500/30 transition-colors">
+                <h3 className="text-xl font-semibold text-cyan-400 mb-4 flex items-center gap-2">
+                  {idx === 0 && <Code size={20} />}
+                  {idx === 1 && <Globe size={20} />}
+                  {idx === 2 && <Database size={20} />}
+                  {category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {items.map((skill, sIdx) => (
+                    <span key={sIdx} className="bg-gray-800/80 text-gray-300 text-sm px-3 py-1.5 rounded-md border border-gray-700/50">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="edu-card">
-              <h3>Diploma in English</h3>
-              <div className="sub">The Open University of Sri Lanka (OUSL)</div>
-              <p>Successfully followed professional studies in English language, communication, and writing skills designed for academic and professional excellence.</p>
-            </div>
-          </div>
-
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="edu-card">
-              <h3>Diploma in English Language</h3>
-              <div className="sub">Britishway English Academy</div>
-              <p>Completed intensive training in spoken English, corporate communication, presentation skills, and professional writing.</p>
-            </div>
-          </div>
-
-          <div className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="edu-card">
-              <h3>G.C.E. Advanced Level – Technology Stream</h3>
-              <div className="sub">Secondary Education</div>
-              <p>Successfully completed Advanced Level examination in the Technology stream, laying a strong foundation in Engineering Technology, Information Technology, and Science for Technology.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Skills */}
-      <section id="skills">
-        <h2 className="section-title">Business Analysis & Professional Skills</h2>
-        <div className="skills-grid">
-          <div className="skill-card">
-            <h3>📋 Business Analysis</h3>
-            <div className="tags">
-              <span className="tag">Requirements Gathering</span>
-              <span className="tag">Requirements Analysis</span>
-              <span className="tag">Business Problem Identification</span>
-              <span className="tag">Business Process Analysis</span>
-              <span className="tag">Stakeholder Analysis</span>
-              <span className="tag">Functional Requirements</span>
-              <span className="tag">Non-Functional Requirements</span>
-              <span className="tag">User Stories</span>
-              <span className="tag">Use Cases</span>
-              <span className="tag">Process Improvement</span>
-              <span className="tag">System Analysis</span>
-              <span className="tag">Documentation</span>
-            </div>
-          </div>
-
-          <div className="skill-card">
-            <h3>📊 Data & Business Analytics</h3>
-            <div className="tags">
-              <span className="tag">Microsoft Excel</span>
-              <span className="tag">Microsoft Power BI</span>
-              <span className="tag">Data Visualization</span>
-              <span className="tag">Dashboard Development</span>
-              <span className="tag">Data-driven Decision Making</span>
-              <span className="tag">HR Analytics</span>
-              <span className="tag">Business Intelligence</span>
-            </div>
-          </div>
-
-          <div className="skill-card">
-            <h3>📌 Project & Agile</h3>
-            <div className="tags">
-              <span className="tag">Agile Methodology</span>
-              <span className="tag">Scrum</span>
-              <span className="tag">Project Planning</span>
-              <span className="tag">Team Collaboration</span>
-              <span className="tag">Requirement Documentation</span>
-              <span className="tag">SDLC</span>
-            </div>
-          </div>
-
-          <div className="skill-card">
-            <h3>🧪 QA / Testing</h3>
-            <div className="tags">
-              <span className="tag">Software Testing Fundamentals</span>
-              <span className="tag">Functional Testing</span>
-              <span className="tag">Non-functional Testing</span>
-              <span className="tag">Test Case Design</span>
-              <span className="tag">Quality Assurance</span>
-            </div>
-          </div>
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
+          <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
         </div>
-      </section>
 
-      {/* Projects */}
-      <section id="projects">
-        <h2 className="section-title">Featured Projects</h2>
-        <div className="projects-grid">
-          {/* Project 1 */}
-          <div className="project-card">
-            <div className="project-header">
-              <h3 className="project-title">🚀 01. CRM System</h3>
-              <span className="project-type">Business Management / CRM System</span>
-            </div>
-            <div className="project-banner-grid">
-              <div className="project-img-wrapper">
-                <img src="/images/crm-dashboard.png" alt="CRM System Dashboard" />
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, idx) => (
+            <div key={idx} className="bg-[#131b2e] rounded-xl overflow-hidden border border-gray-800 hover:border-cyan-500/40 transition-all flex flex-col">
+              <div className="h-48 overflow-hidden bg-gray-900 border-b border-gray-800">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
               </div>
-              <div>
-                <p className="project-desc">A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.</p>
-              </div>
-            </div>
-            <div className="project-details">
-              <div className="detail-box">
-                <h5>Problem Identified</h5>
-                <p>Businesses manage customer and sales information across disconnected methods, making it difficult to track leads, tasks, and sales activities.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Proposed Solution</h5>
-                <p>A centralized CRM system that organizes customer information and sales workflows into one unified platform.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Key Features</h5>
-                <ul>
-                  <li>User authentication & role management</li>
-                  <li>Lead & customer management</li>
-                  <li>Kanban-based sales pipeline</li>
-                  <li>Invoicing & due-date tracking</li>
-                </ul>
-              </div>
-              <div className="detail-box">
-                <h5>BA Skills Demonstrated</h5>
-                <div className="tags">
-                  <span className="tag">Requirement Identification</span>
-                  <span className="tag">Workflow Analysis</span>
-                  <span className="tag">Process Understanding</span>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">{project.description}</p>
+                </div>
+                <div>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((t, tIdx) => (
+                      <span key={tIdx} className="text-xs text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-800/50">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4 border-t border-gray-800 pt-4">
+                    <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan-400 transition-colors">
+                      <Github size={16} /> Code
+                    </a>
+                    <a href={project.live} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan-400 transition-colors">
+                      <ExternalLink size={16} /> Demo
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="project-footer">
-              <div>
-                <strong style={{ fontSize: '14px', color: '#a0aec0' }}>Role: </strong>
-                <span style={{ fontSize: '14px', color: '#00d2ff', fontWeight: 700 }}>Business Analysis & System Development</span>
-              </div>
-              <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" className="project-link">View Project on GitHub →</a>
-            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Certifications Section */}
+      <section id="certifications" className="py-20 bg-[#0e1420] border-y border-gray-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-white">Certifications</h2>
+            <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
           </div>
 
-          {/* Project 2 */}
-          <div className="project-card">
-            <div className="project-header">
-              <h3 className="project-title">🏫 02. AcademiCore Instrument Allocation System</h3>
-              <span className="project-type">Academic / Resource Management</span>
-            </div>
-            <div className="project-banner-grid">
-              <div className="project-img-wrapper">
-                <img src="/images/academicore-login.jpg" alt="AcademiCore System" />
-              </div>
-              <div>
-                <p className="project-desc">A web-based instrument allocation and management system developed for the Faculty of Technology to improve equipment allocation, tracking, and maintenance.</p>
-              </div>
-            </div>
-            <div className="project-details">
-              <div className="detail-box">
-                <h5>Problem Identified</h5>
-                <p>Manual instrument management causes difficulty in knowing real-time availability, tracking bookings, and monitoring maintenance.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Proposed Solution</h5>
-                <p>A digital platform for administrators and users to efficiently manage allocation, availability, and QR-based tracking.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Key Features</h5>
-                <ul>
-                  <li>Instrument booking system</li>
-                  <li>Real-time availability status</li>
-                  <li>QR code-based tracking</li>
-                  <li>Maintenance alerts & reports</li>
-                </ul>
-              </div>
-              <div className="detail-box">
-                <h5>BA Skills Demonstrated</h5>
-                <div className="tags">
-                  <span className="tag">Stakeholder Thinking</span>
-                  <span className="tag">Process Analysis</span>
-                  <span className="tag">Solution Design</span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert, idx) => (
+              <div key={idx} className="bg-[#131b2e] p-6 rounded-xl border border-gray-800 flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-cyan-950/60 flex items-center justify-center text-cyan-400 mb-4 border border-cyan-800/40">
+                    <Award size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">{cert.name}</h3>
+                  <p className="text-gray-400 text-sm">{cert.issuer}</p>
                 </div>
+                <span className="text-xs text-cyan-400 font-medium mt-4 block">{cert.year}</span>
               </div>
-            </div>
-            <div className="project-footer">
-              <div>
-                <strong style={{ fontSize: '14px', color: '#a0aec0' }}>Role: </strong>
-                <span style={{ fontSize: '14px', color: '#00d2ff', fontWeight: 700 }}>Team Member / System Analysis & Development</span>
-              </div>
-              <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" className="project-link">View Project on GitHub →</a>
-            </div>
-          </div>
-
-          {/* Project 3 */}
-          <div className="project-card">
-            <div className="project-header">
-              <h3 className="project-title">🛒 03. SmartMart POS System</h3>
-              <span className="project-type">Point of Sale / Retail System</span>
-            </div>
-            <div className="project-banner-grid">
-              <div className="project-img-wrapper">
-                <img src="/images/smartmart-pos.jpg" alt="SmartMart POS System" />
-              </div>
-              <div>
-                <p className="project-desc">A Point of Sale system designed to support retail operations such as product management, sales transactions, inventory monitoring, and reporting.</p>
-              </div>
-            </div>
-            <div className="project-details">
-              <div className="detail-box">
-                <h5>Problem Identified</h5>
-                <p>Retail businesses require integrated operational workflows connecting Products → Inventory → Sales → Customer Reports.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Proposed Solution</h5>
-                <p>A centralized POS platform integrating sales and inventory processes to improve operational visibility and efficiency.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Key Features</h5>
-                <ul>
-                  <li>Inventory & stock tracking</li>
-                  <li>Sales processing & records</li>
-                  <li>Customer management</li>
-                  <li>Dashboard & reporting</li>
-                </ul>
-              </div>
-              <div className="detail-box">
-                <h5>BA Skills Demonstrated</h5>
-                <div className="tags">
-                  <span className="tag">Process Improvement</span>
-                  <span className="tag">System Planning</span>
-                  <span className="tag">Database Understanding</span>
-                </div>
-              </div>
-            </div>
-            <div className="project-footer">
-              <div>
-                <strong style={{ fontSize: '14px', color: '#a0aec0' }}>Role: </strong>
-                <span style={{ fontSize: '14px', color: '#00d2ff', fontWeight: 700 }}>System Analysis & Development</span>
-              </div>
-              <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" className="project-link">View Project on GitHub →</a>
-            </div>
-          </div>
-
-          {/* Project 4 */}
-          <div className="project-card">
-            <div className="project-header">
-              <h3 className="project-title">📊 04. HR Analytics Dashboard</h3>
-              <span className="project-type">Business Intelligence / Data Analytics</span>
-            </div>
-            <div className="project-banner-grid">
-              <div className="project-img-wrapper">
-                <img src="/images/HR-Analytics-Dashboard.jpg" alt="HR Analytics Dashboard" />
-              </div>
-              <div>
-                <p className="project-desc">An interactive HR Analytics Dashboard developed using Microsoft Power BI to transform raw HR data into actionable organizational insights.</p>
-              </div>
-            </div>
-            <div className="project-details">
-              <div className="detail-box">
-                <h5>Key Insights Covered</h5>
-                <ul>
-                  <li>Employee Attrition Analysis</li>
-                  <li>Workforce Demographics</li>
-                  <li>Job Satisfaction Trends</li>
-                  <li>Department-wise KPIs</li>
-                </ul>
-              </div>
-              <div className="detail-box">
-                <h5>Business Value</h5>
-                <p>Helps HR leadership identify workforce trends, monitor metrics, and support strategic data-driven decision-making.</p>
-              </div>
-              <div className="detail-box">
-                <h5>Tools Used</h5>
-                <div className="tags">
-                  <span className="tag">Microsoft Power BI</span>
-                  <span className="tag">Excel</span>
-                </div>
-              </div>
-              <div className="detail-box">
-                <h5>Skills Demonstrated</h5>
-                <div className="tags">
-                  <span className="tag">Data Cleaning</span>
-                  <span className="tag">Data Visualization</span>
-                  <span className="tag">KPI Analysis</span>
-                </div>
-              </div>
-            </div>
-            <div className="project-footer">
-              <div>
-                <strong style={{ fontSize: '14px', color: '#a0aec0' }}>Type: </strong>
-                <span style={{ fontSize: '14px', color: '#00d2ff', fontWeight: 700 }}>Power BI Case Study</span>
-              </div>
-              <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" className="project-link">View Dashboard Repository →</a>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Certifications */}
-      <section id="certifications">
-        <h2 className="section-title">Certifications</h2>
-        <div className="cert-grid">
-          <div className="cert-card">
-            <div>
-              <h3>IBM Business Analytics Professional Certificate</h3>
-              <div className="issuer">IBM / Coursera</div>
-            </div>
-            <div className="tags">
-              <span className="tag">Business Analytics</span>
-              <span className="tag">Data Analysis</span>
-              <span className="tag">Data Visualization</span>
-            </div>
-          </div>
-
-          <div className="cert-card">
-            <div>
-              <h3>Business Analytics with Excel</h3>
-              <div className="issuer">Simplilearn</div>
-            </div>
-            <div className="tags">
-              <span className="tag">MS Excel</span>
-              <span className="tag">Data Analysis</span>
-              <span className="tag">Data Interpretation</span>
-            </div>
-          </div>
-
-          <div className="cert-card">
-            <div>
-              <h3>Foundation of Project Management</h3>
-              <div className="issuer">University of Moratuwa – CODL</div>
-            </div>
-            <div className="tags">
-              <span className="tag">Project Planning</span>
-              <span className="tag">PM Practices</span>
-              <span className="tag">ICT Projects</span>
-            </div>
-          </div>
-
-          <div className="cert-card">
-            <div>
-              <h3>Agile Project Management in ICT Projects</h3>
-              <div className="issuer">University of Moratuwa – CODL</div>
-            </div>
-            <div className="tags">
-              <span className="tag">Agile Methodology</span>
-              <span className="tag">Scrum</span>
-              <span className="tag">Iterative Development</span>
-            </div>
-          </div>
-
-          <div className="cert-card">
-            <div>
-              <h3>Introduction to Software Testing</h3>
-              <div className="issuer">Simplilearn</div>
-            </div>
-            <div className="tags">
-              <span className="tag">Software Testing</span>
-              <span className="tag">Testing Types</span>
-              <span className="tag">Quality Assurance</span>
-            </div>
-          </div>
-
-          <div className="cert-card">
-            <div>
-              <h3>AWS Academy Cloud Foundations</h3>
-              <div className="issuer">AWS Academy</div>
-            </div>
-            <div className="tags">
-              <span className="tag">Cloud Computing</span>
-              <span className="tag">AWS Infrastructure</span>
-              <span className="tag">EC2 & S3</span>
-            </div>
-          </div>
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-white">Get In Touch</h2>
+          <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
         </div>
-      </section>
 
-      {/* Career Statement */}
-      <section>
-        <div className="statement-box">
-          <h3>🎯 Business Analyst Career Statement</h3>
-          <p>I am currently building my career toward Business Analysis, with a focus on understanding business problems, analyzing requirements, improving processes, and using data and technology to develop practical solutions. My combination of ICT knowledge, business analytics experience, project management knowledge, and hands-on system development projects allows me to understand both business needs and technical solutions.</p>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact">
-        <h2 className="section-title">Get In Touch</h2>
-        <div className="contact-container">
-          <div className="contact-card">
-            <h2>Let's Connect</h2>
-            <p className="desc">I'm always interested in discussing new opportunities, business analysis projects, collaborations, or technology-driven solutions.</p>
-
-            <a href="mailto:kavindi.sandaruwani@gmail.com" className="info-box">
-              <div className="icon-circle">✉</div>
-              <div>
-                <span className="info-label">Email</span>
-                <p className="info-val">kavindi.sandaruwani@gmail.com</p>
-              </div>
+        <div className="max-w-2xl mx-auto bg-[#131b2e] p-8 rounded-xl border border-gray-800 text-center space-y-6">
+          <p className="text-gray-300">
+            I am currently looking for internship opportunities and collaborative projects. Feel free to reach out to me!
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-4">
+            <a href="mailto:kavindi@example.com" className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-colors">
+              <Mail className="text-cyan-400" size={20} />
+              <span>Email Me</span>
             </a>
-
-            <div className="info-box">
-              <div className="icon-circle">📍</div>
-              <div>
-                <span className="info-label">Location</span>
-                <p className="info-val">Kalutara, Sri Lanka</p>
-              </div>
-            </div>
+            <a href="https://linkedin.com/in/kavindi-sandaruwani" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-colors">
+              <Linkedin className="text-cyan-400" size={20} />
+              <span>LinkedIn Profile</span>
+            </a>
           </div>
-
-          <div className="contact-card">
-            <h2>Send me a message</h2>
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Your Name" required />
-              <input type="email" placeholder="Your Email" required />
-              <textarea placeholder="Your Message" rows="5" required></textarea>
-              <button type="submit" className="submit-btn">✈ Send Message</button>
-            </form>
-          </div>
-        </div>
-
-        {/* Social Icons */}
-        <div className="social-links">
-          <a href="https://www.linkedin.com/in/kavindi-sandaruwani-057389379" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-          </a>
-          <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
-          </a>
-          <a href="mailto:kavindi.sandaruwani@gmail.com" className="social-icon" aria-label="Email">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </a>
         </div>
       </section>
 
-      <footer>
-        © 2026 Kavindi Sandaruwani. All rights reserved.<br />
-        Designed with ❤️ and built with modern web technologies<br />
-        <span style={{ color: '#00d2ff', fontWeight: 700, marginTop: '5px', display: 'inline-block' }}>
-          👁️ <span>{viewCount}</span> Portfolio Views
-        </span>
+      {/* Footer */}
+      <footer className="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+        <p>© {new Date().getFullYear()} Kavindi Sandaruwani. All rights reserved.</p>
       </footer>
-    </>
+    </div>
   );
 }
 
