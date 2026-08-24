@@ -1,210 +1,228 @@
 import React, { useState } from 'react';
-import { 
-  Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download, Code, Database, Globe, Cpu, Layout, Server, Award, ChevronRight, Menu, X 
-} from 'lucide-react';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // GitHub Pages image path helper
+  const getImgPath = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
   const projects = [
     {
-      title: "CRM System Dashboard",
-      description: "A comprehensive Customer Relationship Management dashboard built to streamline business workflows, track leads, and analyze sales performance in real-time.",
-      tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-      github: "https://github.com/Kavindi-Sandaruwani/CRM-System",
-      live: "https://kavindi-sandaruwani.github.io/CRM-System/",
-      image: "./images/crm-dashboard.png"
+      id: "01",
+      title: "CRM System",
+      category: "Business Management / CRM System",
+      description: "A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.",
+      image: "images/crm-dashboard.png",
+      problem: "Businesses manage customer and sales information across disconnected methods, making it difficult to track leads, tasks, and sales activities.",
+      solution: "A centralized CRM system that organizes customer information and sales workflows into one unified platform.",
+      features: [
+        "User authentication & role management",
+        "Lead & customer management",
+        "Kanban-based sales pipeline",
+        "Invoicing & due-date tracking"
+      ],
+      baSkills: ["Requirement Identification", "Workflow Analysis", "Process Understanding"],
+      role: "Business Analysis & System Development",
+      github: "https://github.com/Kavindi-Sandaruwani/CRM-System"
     },
     {
+      id: "02",
       title: "AcademiCore - Student Management System",
       description: "A robust full-stack web application designed for educational institutions to manage student records, course enrollments, and academic performance tracking efficiently.",
-      tech: ["PHP", "MySQL", "Bootstrap", "JavaScript", "HTML/CSS"],
-      github: "https://github.com/Kavindi-Sandaruwani/AcademiCore-Student-Management-System",
-      live: "https://kavindi-sandaruwani.github.io/AcademiCore-Student-Management-System/",
-      image: "./images/academicore-login.jpg"
-    },
-    {
-      title: "SmartMart POS System",
-      description: "A desktop Point of Sale (POS) application built for retail stores, featuring automated inventory tracking, billing management, and sales reporting.",
-      tech: ["Java", "JavaFX", "MySQL", "JDBC"],
-      github: "https://github.com/Kavindi-Sandaruwani/SmartMart-POS-System",
-      live: "https://kavindi-sandaruwani.github.io/SmartMart-POS-System/",
-      image: "./images/smartmart-pos.jpg"
-    },
-    {
-      title: "HR Analytics Dashboard",
-      description: "An interactive Power BI dashboard visualizing key human resource metrics including employee attrition, performance trends, and workforce demographics.",
-      tech: ["Power BI", "DAX", "Data Modeling", "Excel"],
-      github: "https://github.com/Kavindi-Sandaruwani/HR-Analytics-Dashboard",
-      live: "https://kavindi-sandaruwani.github.io/HR-Analytics-Dashboard/",
-      image: "./images/HR-Analytics-Dashboard.jpg"
+      image: "images/academicore-login.jpg",
+      problem: "Manual record keeping causes data inaccuracy and delays in tracking student performance.",
+      solution: "Automated student management portal with real-time reporting.",
+      features: ["Student registration & profiling", "Course enrollment tracking", "Gradebook management"],
+      baSkills: ["Data Modeling", "System Design"],
+      role: "Full-Stack Development",
+      github: "https://github.com/Kavindi-Sandaruwani/AcademiCore-Student-Management-System"
     }
   ];
 
-  const skills = {
-    "Programming Languages": ["Java", "Python", "JavaScript", "PHP", "C++", "SQL"],
-    "Web Technologies": ["React", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Node.js", "Express.js"],
-    "Databases & Tools": ["MySQL", "MongoDB", "Git & GitHub", "Visual Studio Code", "Power BI", "Figma"]
-  };
-
   const certifications = [
-    { name: "Full Stack Web Development", issuer: "University of Moratuwa (CODL)", year: "2023" },
-    { name: "Python for Beginners", issuer: "University of Moratuwa (CODL)", year: "2023" },
-    { name: "Java Programming", issuer: "HackerRank", year: "2023" },
-    { name: "SQL (Basic & Intermediate)", issuer: "HackerRank", year: "2023" }
+    {
+      title: "IBM Business Analytics Professional Certificate",
+      issuer: "IBM / Coursera",
+      tags: ["Business Analytics", "Data Analysis", "Data Visualization"]
+    },
+    {
+      title: "Business Analytics with Excel",
+      issuer: "Simplilearn",
+      tags: ["MS Excel", "Data Analysis", "Data Interpretation"]
+    },
+    {
+      title: "Foundation of Project Management",
+      issuer: "University of Moratuwa – CODL",
+      tags: ["Project Planning", "PM Practices", "ICT Projects"]
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0f17] text-gray-200 font-sans selection:bg-cyan-500 selection:text-black">
+    <div className="min-h-screen bg-[#070b12] text-gray-200 font-sans selection:bg-cyan-500 selection:text-black">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#0b0f17]/80 backdrop-blur-md border-b border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Kavindi.dev
+      <nav className="fixed top-0 left-0 w-full z-50 bg-[#070b12]/90 backdrop-blur-md border-b border-cyan-900/30">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex justify-between h-20 items-center">
+            <span className="text-xl font-bold tracking-widest text-cyan-400 uppercase">
+              Kavindi Sandaruwani
             </span>
             
-            <div className="hidden md:flex space-x-8 text-sm font-medium">
+            <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
+              <a href="#home" className="hover:text-cyan-400 transition-colors">Home</a>
               <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-              <a href="#skills" className="hover:text-cyan-400 transition-colors">Skills</a>
+              <a href="#education" className="hover:text-cyan-400 transition-colors">Education</a>
+              <a href="#skills" className="hover:text-cyan-400 transition-colors">BA Skills</a>
               <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
               <a href="#certifications" className="hover:text-cyan-400 transition-colors">Certifications</a>
-              <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
+              <a href="#contact" className="px-5 py-2 rounded-full border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all">
+                Contact
+              </a>
             </div>
-
-            <button 
-              className="md:hidden text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-[#111827] border-b border-gray-800 px-4 pt-2 pb-4 space-y-2">
-            <a href="#about" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">About</a>
-            <a href="#skills" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Skills</a>
-            <a href="#projects" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Projects</a>
-            <a href="#certifications" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Certifications</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-cyan-400">Contact</a>
-          </div>
-        )}
       </nav>
 
-      {/* Hero / About Section */}
-      <section id="about" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="w-48 h-48 md:w-64 md:h-64 relative flex-shrink-0">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 blur-lg opacity-40 animate-pulse"></div>
-            <img 
-              src="./images/profile.jpg" 
-              alt="Kavindi Sandaruwani" 
-              className="w-full h-full object-cover rounded-full relative z-10 border-2 border-cyan-500/50 shadow-2xl"
-            />
-          </div>
+      {/* About Section */}
+      <section id="about" className="pt-36 pb-20 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-12">About Me</h2>
 
-          <div className="flex-1 text-center md:text-left space-y-4">
-            <h2 className="text-cyan-400 font-medium tracking-wide">Hello, I'm</h2>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Kavindi Sandaruwani
-            </h1>
-            <h3 className="text-xl sm:text-2xl text-gray-400 font-medium">
-              Software Engineering Undergraduate
-            </h3>
-            <p className="text-gray-400 max-w-2xl leading-relaxed">
-              Passionate IT undergraduate specializing in full-stack web development, database management, and software solution architecture. Adept at building responsive, user-friendly applications using modern technologies.
-            </p>
-
-            <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-              <a 
-                href="#contact" 
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
-              >
-                Get In Touch <ChevronRight size={18} />
-              </a>
-              <a 
-                href="https://github.com/Kavindi-Sandaruwani" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="px-6 py-3 rounded-lg bg-gray-800 border border-gray-700 hover:border-cyan-500/50 text-gray-200 transition-colors flex items-center gap-2"
-              >
-                <Github size={18} /> GitHub
-              </a>
+        <div className="grid md:grid-cols-12 gap-8 items-start">
+          {/* Profile Card */}
+          <div className="md:col-span-4 bg-[#0e1626] border border-cyan-900/40 rounded-2xl p-8 text-center flex flex-col items-center">
+            <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-cyan-400 mb-6 shadow-lg shadow-cyan-500/20">
+              <img 
+                src={getImgPath('images/profile.jpg')} 
+                alt="Kavindi Sandaruwani" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback if image not found
+                  e.target.onerror = null; 
+                  e.target.src = 'https://via.placeholder.com/160?text=Kavindi';
+                }}
+              />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-20 bg-[#0e1420] border-y border-gray-800/50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
-            <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
+            <h3 className="text-xl font-bold text-white mb-2">Aspiring Business Analyst</h3>
+            <p className="text-xs text-gray-400">Bridging Business Goals with Technology Solutions</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {Object.entries(skills).map(([category, items], idx) => (
-              <div key={idx} className="bg-[#131b2e] p-6 rounded-xl border border-gray-800 hover:border-cyan-500/30 transition-colors">
-                <h3 className="text-xl font-semibold text-cyan-400 mb-4 flex items-center gap-2">
-                  {idx === 0 && <Code size={20} />}
-                  {idx === 1 && <Globe size={20} />}
-                  {idx === 2 && <Database size={20} />}
-                  {category}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((skill, sIdx) => (
-                    <span key={sIdx} className="bg-gray-800/80 text-gray-300 text-sm px-3 py-1.5 rounded-md border border-gray-700/50">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+          {/* Description & Stats */}
+          <div className="md:col-span-8 space-y-8">
+            <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
+              <p>
+                I am <span className="font-semibold text-white">Kavindi Sandaruwani</span>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning. I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
+              </p>
+              <p>
+                I am passionate about using technology to solve real-world problems and creating user-focused, efficient solutions. Through my academic projects and continuous learning, I am developing my skills in software development, database management, data visualization, and business analysis.
+              </p>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
+                <h4 className="text-2xl font-bold text-cyan-400">3rd Year</h4>
+                <p className="text-xs text-gray-400 mt-1">ICT Undergraduate</p>
               </div>
-            ))}
+              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
+                <h4 className="text-2xl font-bold text-cyan-400">4+</h4>
+                <p className="text-xs text-gray-400 mt-1">Practical Projects</p>
+              </div>
+              <div className="bg-[#0e1626] border border-cyan-900/40 rounded-xl p-5 text-center">
+                <h4 className="text-2xl font-bold text-cyan-400">6+</h4>
+                <p className="text-xs text-gray-400 mt-1">Certifications</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
-          <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
-        </div>
+      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-16">Projects</h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
-            <div key={idx} className="bg-[#131b2e] rounded-xl overflow-hidden border border-gray-800 hover:border-cyan-500/40 transition-all flex flex-col">
-              <div className="h-48 overflow-hidden bg-gray-900 border-b border-gray-800">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
+        <div className="space-y-12">
+          {projects.map((proj) => (
+            <div key={proj.id} className="bg-[#0c1220] border border-cyan-500/30 rounded-2xl p-8 relative">
+              
+              {/* Top Header */}
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-cyan-400 flex items-center gap-2">
+                  🚀 {proj.id}. {proj.title}
+                </h3>
+                {proj.category && (
+                  <span className="bg-gray-800/80 text-gray-300 text-xs px-4 py-2 rounded-lg border border-gray-700">
+                    {proj.category}
+                  </span>
+                )}
               </div>
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">{project.description}</p>
+
+              {/* Main Content Grid */}
+              <div className="grid md:grid-cols-12 gap-8 mb-8">
+                {/* Image */}
+                <div className="md:col-span-5 rounded-xl overflow-hidden border border-cyan-900/50 bg-[#070b12] flex items-center justify-center">
+                  <img 
+                    src={getImgPath(proj.image)} 
+                    alt={proj.title} 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://via.placeholder.com/400x250?text=Project+Image';
+                    }}
+                  />
                 </div>
-                <div>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((t, tIdx) => (
-                      <span key={tIdx} className="text-xs text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-800/50">
-                        {t}
-                      </span>
-                    ))}
+
+                {/* Description & Details */}
+                <div className="md:col-span-7 space-y-6">
+                  <p className="text-gray-300 text-sm leading-relaxed">{proj.description}</p>
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
+                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Problem Identified</h5>
+                      <p className="text-xs text-gray-400 leading-relaxed text-center">{proj.problem}</p>
+                    </div>
+
+                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
+                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Proposed Solution</h5>
+                      <p className="text-xs text-gray-400 leading-relaxed text-center">{proj.solution}</p>
+                    </div>
+
+                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
+                      <h5 className="text-cyan-400 font-semibold text-xs mb-2 text-center">Key Features</h5>
+                      <ul className="text-xs text-gray-400 space-y-1 list-disc list-inside">
+                        {proj.features.map((f, i) => (
+                          <li key={i}>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div className="flex gap-4 border-t border-gray-800 pt-4">
-                    <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan-400 transition-colors">
-                      <Github size={16} /> Code
-                    </a>
-                    <a href={project.live} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm text-gray-300 hover:text-cyan-400 transition-colors">
-                      <ExternalLink size={16} /> Demo
-                    </a>
-                  </div>
+
+                  {proj.baSkills && (
+                    <div className="bg-[#070b12] p-4 rounded-xl border border-cyan-900/30">
+                      <h5 className="text-cyan-400 font-semibold text-xs mb-3 text-center">BA Skills Demonstrated</h5>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {proj.baSkills.map((s, idx) => (
+                          <span key={idx} className="border border-cyan-500/50 text-cyan-400 text-xs px-3 py-1 rounded-full">
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </div>
+
+              {/* Bottom Footer */}
+              <div className="flex justify-between items-center pt-4 border-t border-cyan-900/30 text-xs">
+                <span className="text-gray-400">
+                  Role: <span className="text-cyan-400 font-medium">{proj.role}</span>
+                </span>
+                <a 
+                  href={proj.github} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="text-cyan-400 hover:underline flex items-center gap-1 font-medium"
+                >
+                  View Project on GitHub →
+                </a>
               </div>
             </div>
           ))}
@@ -212,59 +230,25 @@ function App() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="py-20 bg-[#0e1420] border-y border-gray-800/50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white">Certifications</h2>
-            <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
-          </div>
+      <section id="certifications" className="py-20 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-16">Certifications</h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {certifications.map((cert, idx) => (
-              <div key={idx} className="bg-[#131b2e] p-6 rounded-xl border border-gray-800 flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-lg bg-cyan-950/60 flex items-center justify-center text-cyan-400 mb-4 border border-cyan-800/40">
-                    <Award size={20} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{cert.name}</h3>
-                  <p className="text-gray-400 text-sm">{cert.issuer}</p>
-                </div>
-                <span className="text-xs text-cyan-400 font-medium mt-4 block">{cert.year}</span>
+        <div className="space-y-6 max-w-3xl mx-auto">
+          {certifications.map((cert, idx) => (
+            <div key={idx} className="bg-[#0c1220] border border-cyan-500/30 rounded-2xl p-8 text-center space-y-4">
+              <h3 className="text-xl font-bold text-cyan-400">{cert.title}</h3>
+              <p className="text-sm font-semibold text-white">{cert.issuer}</p>
+              <div className="flex flex-wrap gap-3 justify-center pt-2">
+                {cert.tags.map((tag, tIdx) => (
+                  <span key={tIdx} className="border border-cyan-500/40 text-cyan-400 text-xs px-4 py-1.5 rounded-full bg-cyan-950/20">
+                    {tag}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white">Get In Touch</h2>
-          <div className="w-16 h-1 bg-cyan-500 mx-auto mt-2 rounded-full"></div>
-        </div>
-
-        <div className="max-w-2xl mx-auto bg-[#131b2e] p-8 rounded-xl border border-gray-800 text-center space-y-6">
-          <p className="text-gray-300">
-            I am currently looking for internship opportunities and collaborative projects. Feel free to reach out to me!
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-4">
-            <a href="mailto:kavindi@example.com" className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-colors">
-              <Mail className="text-cyan-400" size={20} />
-              <span>Email Me</span>
-            </a>
-            <a href="https://linkedin.com/in/kavindi-sandaruwani" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 transition-colors">
-              <Linkedin className="text-cyan-400" size={20} />
-              <span>LinkedIn Profile</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-        <p>© {new Date().getFullYear()} Kavindi Sandaruwani. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
