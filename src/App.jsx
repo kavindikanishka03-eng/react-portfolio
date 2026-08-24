@@ -1,290 +1,1052 @@
 import React, { useState } from 'react';
 
+// Vite image path helper
+const getImgPath = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
+// Full Projects Data Dynamic Array
+const projects = [
+  {
+    id: "01",
+    title: "CRM System",
+    category: "Business Management / CRM System",
+    description: "A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.",
+    image: "images/crm-dashboard.png",
+    col1Title: "Problem Identified",
+    col1Content: "Businesses manage customer and sales information across disconnected methods, making it difficult to track leads, tasks, and sales activities.",
+    col2Title: "Proposed Solution",
+    col2Content: "A centralized CRM system that organizes customer information and sales workflows into one unified platform.",
+    col3Title: "Key Features",
+    col3List: [
+      "User authentication & role management",
+      "Lead & customer management",
+      "Kanban-based sales pipeline",
+      "Invoicing & due-date tracking"
+    ],
+    col4Title: "BA Skills Demonstrated",
+    tags: ["Requirement Identification", "Workflow Analysis", "Process Understanding"],
+    roleLabel: "Role:",
+    roleValue: "Business Analysis & System Development",
+    linkText: "View Project on GitHub →",
+    github: "https://github.com/kavindikanishka03-eng"
+  },
+  {
+    id: "02",
+    title: "AcademiCore Instrument Allocation System",
+    category: "Academic / Resource Management",
+    description: "A web-based instrument allocation and management system developed for the Faculty of Technology to improve equipment allocation, tracking, and maintenance.",
+    image: "images/academicore-login.jpg",
+    col1Title: "Problem Identified",
+    col1Content: "Manual instrument management causes difficulty in knowing real-time availability, tracking bookings, and monitoring maintenance.",
+    col2Title: "Proposed Solution",
+    col2Content: "A digital platform for administrators and users to efficiently manage allocation, availability, and QR-based tracking.",
+    col3Title: "Key Features",
+    col3List: [
+      "Instrument booking system",
+      "Real-time availability status",
+      "QR code-based tracking",
+      "Maintenance alerts & reports"
+    ],
+    col4Title: "BA Skills Demonstrated",
+    tags: ["Stakeholder Thinking", "Process Analysis", "Solution Design"],
+    roleLabel: "Role:",
+    roleValue: "Team Member / System Analysis & Development",
+    linkText: "View Project on GitHub →",
+    github: "https://github.com/kavindikanishka03-eng"
+  },
+  {
+    id: "03",
+    title: "SmartMart POS System",
+    category: "Point of Sale / Retail System",
+    description: "A Point of Sale system designed to support retail operations such as product management, sales transactions, inventory monitoring, and reporting.",
+    image: "images/smartmart-pos.jpg",
+    col1Title: "Problem Identified",
+    col1Content: "Retail businesses require integrated operational workflows connecting Products → Inventory → Sales → Customer Reports.",
+    col2Title: "Proposed Solution",
+    col2Content: "A centralized POS platform integrating sales and inventory processes to improve operational visibility and efficiency.",
+    col3Title: "Key Features",
+    col3List: [
+      "Inventory & stock tracking",
+      "Sales processing & records",
+      "Customer management",
+      "Dashboard & reporting"
+    ],
+    col4Title: "BA Skills Demonstrated",
+    tags: ["Process Improvement", "System Planning", "Database Understanding"],
+    roleLabel: "Role:",
+    roleValue: "System Analysis & Development",
+    linkText: "View Project on GitHub →",
+    github: "https://github.com/kavindikanishka03-eng"
+  },
+  {
+    id: "04",
+    title: "HR Analytics Dashboard",
+    category: "Business Intelligence / Data Analytics",
+    description: "An interactive HR Analytics Dashboard developed using Microsoft Power BI to transform raw HR data into actionable organizational insights.",
+    image: "images/HR-Analytics-Dashboard.jpg",
+    col1Title: "Key Insights Covered",
+    col1List: [
+      "Employee Attrition Analysis",
+      "Workforce Demographics",
+      "Job Satisfaction Trends",
+      "Department-wise KPIs"
+    ],
+    col2Title: "Business Value",
+    col2Content: "Helps HR leadership identify workforce trends, monitor metrics, and support strategic data-driven decision-making.",
+    col3Title: "Tools Used",
+    col3Badges: ["Microsoft Power BI", "Excel"],
+    col4Title: "Skills Demonstrated",
+    tags: ["Data Cleaning", "Data Visualization", "KPI Analysis"],
+    roleLabel: "Type:",
+    roleValue: "Power BI Case Study",
+    linkText: "View Dashboard Repository →",
+    github: "https://github.com/kavindikanishka03-eng"
+  }
+];
+
+// Certifications Data Array
+const certifications = [
+  {
+    title: "IBM Business Analytics Professional Certificate",
+    issuer: "IBM / Coursera",
+    tags: ["Business Analytics", "Data Analysis", "Data Visualization"]
+  },
+  {
+    title: "Business Analytics with Excel",
+    issuer: "Simplilearn",
+    tags: ["MS Excel", "Data Analysis", "Data Interpretation"]
+  },
+  {
+    title: "Foundation of Project Management",
+    issuer: "University of Moratuwa – CODL",
+    tags: ["Project Planning", "PM Practices", "ICT Projects"]
+  },
+  {
+    title: "Agile Project Management in ICT Projects",
+    issuer: "University of Moratuwa – CODL",
+    tags: ["Agile Methodology", "Scrum", "Iterative Development"]
+  },
+  {
+    title: "Introduction to Software Testing",
+    issuer: "Simplilearn",
+    tags: ["Software Testing", "Testing Types", "Quality Assurance"]
+  },
+  {
+    title: "AWS Academy Cloud Foundations",
+    issuer: "AWS Academy",
+    tags: ["Cloud Computing", "AWS Infrastructure", "EC2 & S3"]
+  }
+];
+
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  // Vite relative asset path helper
-  const getImgPath = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
-
-  const projects = [
-    {
-      id: "01",
-      title: "CRM System",
-      category: "Business Management / CRM System",
-      description: "A Customer Relationship Management (CRM) system designed to help organizations manage customers, leads, tasks, invoices, and business activities through a centralized platform.",
-      image: "images/crm-dashboard.png",
-      problem: "Businesses manage customer and sales information across disconnected methods, making it difficult to track leads, tasks, and sales activities.",
-      solution: "A centralized CRM system that organizes customer information and sales workflows into one unified platform.",
-      features: [
-        "User authentication & role management",
-        "Lead & customer management",
-        "Kanban-based sales pipeline",
-        "Invoicing & due-date tracking"
-      ],
-      baSkills: ["Requirement Identification", "Workflow Analysis", "Process Understanding"],
-      role: "Business Analysis & System Development",
-      github: "https://github.com/Kavindi-Sandaruwani/CRM-System"
-    }
-  ];
-
-  const certifications = [
-    {
-      title: "IBM Business Analytics Professional Certificate",
-      issuer: "IBM / Coursera",
-      tags: ["Business Analytics", "Data Analysis", "Data Visualization"]
-    },
-    {
-      title: "Business Analytics with Excel",
-      issuer: "Simplilearn",
-      tags: ["MS Excel", "Data Analysis", "Data Interpretation"]
-    },
-    {
-      title: "Foundation of Project Management",
-      issuer: "University of Moratuwa – CODL",
-      tags: ["Project Planning", "PM Practices", "ICT Projects"]
-    }
-  ];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Message sent successfully!");
+  };
 
   return (
-    <div style={{ backgroundColor: '#050a14', color: '#e2e8f0', fontFamily: 'sans-serif', minHeight: '100vh', margin: 0, padding: 0 }}>
+    <div style={styles.body}>
+      <style>{`
+        html { scroll-behavior: smooth; }
+        .tag-pill {
+          background: rgba(0, 210, 255, 0.08);
+          color: #00d2ff;
+          padding: 6px 14px;
+          border-radius: 20px;
+          font-size: 13px;
+          font-weight: 500;
+          border: 1px solid rgba(0, 210, 255, 0.3);
+          display: inline-block;
+        }
+        .btn-cyan {
+          background: #00d2ff;
+          color: #050b14;
+          padding: 12px 28px;
+          border-radius: 25px;
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+        }
+        .btn-cyan:hover {
+          box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+          transform: translateY(-2px);
+        }
+        .btn-outline {
+          border: 1px solid #00d2ff;
+          color: #00d2ff;
+          padding: 12px 28px;
+          border-radius: 25px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          background: transparent;
+        }
+        .btn-outline:hover {
+          background: rgba(0, 210, 255, 0.1);
+          transform: translateY(-2px);
+        }
+        .card-glow:hover {
+          border-color: rgba(0, 210, 255, 0.5) !important;
+          box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+        }
+        .form-input:focus, .form-textarea:focus {
+          border-color: #00d2ff !important;
+          outline: none;
+          box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+        }
+      `}</style>
+
       {/* Navbar */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        backgroundColor: 'rgba(5, 10, 20, 0.95)',
-        borderBottom: '1px solid rgba(6, 182, 212, 0.2)',
-        backdropFilter: 'blur(8px)',
-        zIndex: 1000,
-        padding: '0 40px'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '70px' }}>
-          <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#00d8ff', letterSpacing: '2px', textTransform: 'uppercase' }}>
-            Kavindi Sandaruwani
-          </span>
-          <div style={{ display: 'flex', gap: '25px', fontSize: '14px', alignItems: 'center' }}>
-            <a href="#about" style={{ color: '#e2e8f0', textDecoration: 'none' }}>About</a>
-            <a href="#projects" style={{ color: '#e2e8f0', textDecoration: 'none' }}>Projects</a>
-            <a href="#certifications" style={{ color: '#e2e8f0', textDecoration: 'none' }}>Certifications</a>
-            <a href="#contact" style={{
-              color: '#00d8ff',
-              border: '1px solid #00d8ff',
-              padding: '6px 18px',
-              borderRadius: '20px',
-              textDecoration: 'none'
-            }}>Contact</a>
-          </div>
-        </div>
+      <nav style={styles.nav}>
+        <div style={styles.logo}>KAVINDI SANDARUWANI</div>
+        <ul style={styles.navLinks}>
+          <li><a href="#home" style={styles.navLink}>Home</a></li>
+          <li><a href="#about" style={styles.navLink}>About</a></li>
+          <li><a href="#education" style={styles.navLink}>Education</a></li>
+          <li><a href="#baskills" style={styles.navLink}>BA Skills</a></li>
+          <li><a href="#projects" style={styles.navLink}>Projects</a></li>
+          <li><a href="#certifications" style={styles.navLink}>Certifications</a></li>
+          <li><a href="#contact" style={{ ...styles.navLink, ...styles.navContactBtn }}>Contact</a></li>
+        </ul>
       </nav>
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 20px 60px 20px' }}>
-        
-        {/* About Section */}
-        <section id="about" style={{ marginBottom: '80px' }}>
-          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
-            About Me
-          </h2>
+      {/* Hero Section */}
+      <section id="home" style={styles.heroSection}>
+        <h1 style={styles.heroH1}>Kavindi Sandaruwani</h1>
+        <h2 style={styles.heroH2}>Aspiring Business Analyst | ICT Undergraduate | Problem Solver</h2>
+        <p style={styles.heroP}>
+          I am an ICT undergraduate at the University of Colombo with a strong passion for Business Analysis, Data Analytics, Software Development, and Technology-driven solutions. I bridge the gap between business needs and technical systems.
+        </p>
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <a href="#projects" className="btn-cyan">View Featured Projects</a>
+          <a href="#contact" className="btn-outline">Let's Connect</a>
+        </div>
+      </section>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '40px', alignItems: 'start' }}>
-            
-            {/* Left Card with Profile Photo */}
-            <div style={{
-              backgroundColor: '#0a1120',
-              border: '1px solid rgba(6, 182, 212, 0.3)',
-              borderRadius: '16px',
-              padding: '30px 20px',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}>
-              <div style={{
-                width: '160px',
-                height: '160px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '4px solid #00d8ff',
-                marginBottom: '20px',
-                boxShadow: '0 0 20px rgba(0, 216, 255, 0.3)'
-              }}>
-                <img 
-                  src={getImgPath('images/profile.jpg')} 
-                  alt="Kavindi Sandaruwani" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = 'https://via.placeholder.com/160?text=Kavindi';
-                  }}
-                />
+      {/* About Section */}
+      <section id="about" style={styles.section}>
+        <h2 style={styles.sectionTitle}>About Me</h2>
+        <div style={styles.aboutGrid}>
+          {/* Profile Card */}
+          <div style={styles.profileCard}>
+            <div style={styles.profileCircleBox}>
+              <img src={getImgPath('images/profile.jpg')} alt="Kavindi" style={styles.profileImg} />
+            </div>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '10px 0 5px 0' }}>Aspiring Business Analyst</h3>
+            <p style={{ fontSize: '13px', color: '#94a3b8' }}>Bridging Business Goals with Technology Solutions</p>
+          </div>
+
+          {/* Details & Counter Cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <p style={styles.aboutText}>
+              I am <strong>Kavindi Sandaruwani</strong>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning. I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
+            </p>
+            <p style={styles.aboutText}>
+              I am passionate about using technology to solve real-world problems and creating user-focused, efficient solutions. Through my academic projects and continuous learning, I am developing my skills in software development, database management, data visualization, and business analysis. I am always eager to take on new challenges, expand my knowledge, and grow as a professional in the technology industry.
+            </p>
+
+            <div style={styles.counterGrid}>
+              <div className="card-glow" style={styles.counterCard}>
+                <h3 style={styles.counterNum}>3rd Year</h3>
+                <p style={styles.counterLabel}>ICT Undergraduate</p>
               </div>
-              <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 'bold', margin: '0 0 8px 0' }}>
-                Aspiring Business Analyst
-              </h3>
-              <p style={{ color: '#94a3b8', fontSize: '12px', margin: 0 }}>
-                Bridging Business Goals with Technology Solutions
+              <div className="card-glow" style={styles.counterCard}>
+                <h3 style={styles.counterNum}>4+</h3>
+                <p style={styles.counterLabel}>Practical Projects</p>
+              </div>
+              <div className="card-glow" style={styles.counterCard}>
+                <h3 style={styles.counterNum}>6+</h3>
+                <p style={styles.counterLabel}>Certifications</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Education</h2>
+        <div style={styles.timelineContainer}>
+          <div style={styles.timelineLine}></div>
+          
+          <div style={styles.timelineItem}>
+            <div style={styles.timelineDot}></div>
+            <div className="card-glow" style={styles.timelineCard}>
+              <h3 style={styles.eduTitle}>Bachelor of Information and Communication Technology (BICT)</h3>
+              <p style={styles.eduSub}>Faculty of Technology, University of Colombo | 3rd Year Undergraduate</p>
+              <p style={styles.eduDesc}>
+                Pursuing a comprehensive degree in Information and Communication Technology, focusing on System Analysis, Software Engineering, Business Analytics, and Data Management.
+              </p>
+              <h5 style={{ color: '#00d2ff', margin: '15px 0 10px 0', fontSize: '14px' }}>Relevant Areas of Knowledge:</h5>
+              <div style={styles.tagsFlex}>
+                {["System Analysis & Design", "Database Management Systems", "Software Engineering", "Software Testing & QA", "Data Analytics", "Business Analytics", "Project Management", "Agile Methodologies", "Cloud Computing", "Web Development"].map((item, i) => (
+                  <span key={i} className="tag-pill">{item}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div style={styles.timelineItem}>
+            <div style={styles.timelineDot}></div>
+            <div className="card-glow" style={styles.timelineCard}>
+              <h3 style={styles.eduTitle}>Diploma in English</h3>
+              <p style={styles.eduSub}>The Open University of Sri Lanka (OUSL)</p>
+              <p style={styles.eduDesc}>
+                Successfully followed professional studies in English language, communication, and writing skills designed for academic and professional excellence.
               </p>
             </div>
-
-            {/* Right Side Text & Stats */}
-            <div>
-              <div style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: '1.7', marginBottom: '30px' }}>
-                <p style={{ marginBottom: '16px' }}>
-                  I am <strong style={{ color: '#ffffff' }}>Kavindi Sandaruwani</strong>, an Information and Communication Technology undergraduate at the University of Colombo. My journey combines a passion for technology with a strong interest in problem-solving, creativity, and continuous learning.
-                </p>
-                <p>
-                  I am interested in Business Analysis, Software Development, Data Analytics, and UI/UX design, with hands-on experience in developing practical digital solutions.
-                </p>
-              </div>
-
-              {/* Stats Box Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
-                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
-                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>3rd Year</div>
-                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>ICT Undergraduate</div>
-                </div>
-                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
-                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>4+</div>
-                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>Practical Projects</div>
-                </div>
-                <div style={{ backgroundColor: '#0a1120', border: '1px solid rgba(6, 182, 212, 0.2)', padding: '20px', borderRadius: '12px', textAlign: 'center' }}>
-                  <div style={{ color: '#00d8ff', fontSize: '24px', fontWeight: 'bold' }}>6+</div>
-                  <div style={{ color: '#94a3b8', fontSize: '11px', marginTop: '4px' }}>Certifications</div>
-                </div>
-              </div>
-            </div>
-
           </div>
-        </section>
 
-        {/* Projects Section */}
-        <section id="projects" style={{ marginBottom: '80px' }}>
-          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
-            Projects
-          </h2>
+          <div style={styles.timelineItem}>
+            <div style={styles.timelineDot}></div>
+            <div className="card-glow" style={styles.timelineCard}>
+              <h3 style={styles.eduTitle}>Diploma in English Language</h3>
+              <p style={styles.eduSub}>Britishway English Academy</p>
+              <p style={styles.eduDesc}>
+                Completed intensive training in spoken English, corporate communication, presentation skills, and professional writing.
+              </p>
+            </div>
+          </div>
 
+          <div style={styles.timelineItem}>
+            <div style={styles.timelineDot}></div>
+            <div className="card-glow" style={styles.timelineCard}>
+              <h3 style={styles.eduTitle}>G.C.E. Advanced Level – Technology Stream</h3>
+              <p style={styles.eduSub}>Secondary Education</p>
+              <p style={styles.eduDesc}>
+                Successfully completed Advanced Level examination in the Technology stream, laying a strong foundation in Engineering Technology, Information Technology, and Science for Technology.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BA Skills Section */}
+      <section id="baskills" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Business Analysis & Professional Skills</h2>
+        <div style={styles.skillsGrid}>
+          <div className="card-glow" style={styles.skillCategoryCard}>
+            <h3 style={styles.skillCategoryTitle}>📋 Business Analysis</h3>
+            <div style={styles.skillsColumnFlex}>
+              {["Requirements Gathering", "Requirements Analysis", "Business Problem Identification", "Business Process Analysis", "Stakeholder Analysis", "Functional Requirements", "Non-Functional Requirements", "User Stories", "Use Cases", "Process Improvement", "System Analysis"].map((sk, i) => (
+                <span key={i} className="tag-pill">{sk}</span>
+              ))}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.skillCategoryCard}>
+            <h3 style={styles.skillCategoryTitle}>📊 Data & Business Analytics</h3>
+            <div style={styles.skillsColumnFlex}>
+              {["Microsoft Excel", "Microsoft Power BI", "Data Visualization", "Dashboard Development", "Data-driven Decision Making", "HR Analytics", "Business Intelligence"].map((sk, i) => (
+                <span key={i} className="tag-pill">{sk}</span>
+              ))}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.skillCategoryCard}>
+            <h3 style={styles.skillCategoryTitle}>📌 Project & Agile</h3>
+            <div style={styles.skillsColumnFlex}>
+              {["Agile Methodology", "Scrum", "Project Planning", "Team Collaboration", "Requirement Documentation", "SDLC"].map((sk, i) => (
+                <span key={i} className="tag-pill">{sk}</span>
+              ))}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.skillCategoryCard}>
+            <h3 style={styles.skillCategoryTitle}>🧪 QA / Testing</h3>
+            <div style={styles.skillsColumnFlex}>
+              {["Software Testing Fundamentals", "Functional Testing", "Non-functional Testing", "Test Case Design", "Quality Assurance"].map((sk, i) => (
+                <span key={i} className="tag-pill">{sk}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools & Technologies */}
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>Tools & Technologies</h2>
+        <div style={styles.toolsGrid}>
+          <div className="card-glow" style={styles.toolCard}>
+            <h4 style={styles.toolCardTitle}>Business & Analytics</h4>
+            <div style={styles.tagsFlexCenter}>
+              {["Power BI", "Excel", "SQL"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.toolCard}>
+            <h4 style={styles.toolCardTitle}>Business Analysis</h4>
+            <div style={styles.tagsFlexCenter}>
+              {["BRD", "FRD", "User Stories", "Use Cases"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.toolCard}>
+            <h4 style={styles.toolCardTitle}>Development</h4>
+            <div style={styles.tagsFlexCenter}>
+              {["PHP", "React", "Next.js", "Python", "Java", "HTML/CSS"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.toolCard}>
+            <h4 style={styles.toolCardTitle}>Database</h4>
+            <div style={styles.tagsFlexCenter}>
+              {["MySQL", "Oracle", "PL/SQL"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
+            </div>
+          </div>
+          <div className="card-glow" style={styles.toolCard}>
+            <h4 style={styles.toolCardTitle}>Project / Design</h4>
+            <div style={styles.tagsFlexCenter}>
+              {["Git / GitHub", "Figma", "Agile", "Scrum"].map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Projects Section */}
+      <section id="projects" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Featured Projects</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
           {projects.map((proj) => (
-            <div key={proj.id} style={{
-              backgroundColor: '#0a1120',
-              border: '1px solid rgba(6, 182, 212, 0.4)',
-              borderRadius: '16px',
-              padding: '25px',
-              marginBottom: '30px'
-            }}>
-              {/* Card Title Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h3 style={{ color: '#00d8ff', fontSize: '20px', margin: 0, fontWeight: 'bold' }}>
+            <div key={proj.id} className="card-glow" style={styles.projectMainCard}>
+              <div style={styles.projectHeaderRow}>
+                <h3 style={{ color: '#00d2ff', fontSize: '22px', fontWeight: 700 }}>
                   🚀 {proj.id}. {proj.title}
                 </h3>
-                <span style={{ backgroundColor: '#1e293b', color: '#cbd5e1', fontSize: '11px', padding: '5px 12px', borderRadius: '6px' }}>
-                  {proj.category}
-                </span>
+                <span style={styles.categoryBadge}>{proj.category}</span>
               </div>
 
-              {/* Main Grid Layout */}
-              <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '25px', marginBottom: '20px' }}>
-                {/* Project Image Box */}
-                <div style={{
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  border: '1px solid rgba(6, 182, 212, 0.2)',
-                  backgroundColor: '#050a14',
-                  height: '180px'
-                }}>
-                  <img 
-                    src={getImgPath(proj.image)} 
-                    alt={proj.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = 'https://via.placeholder.com/300x180?text=CRM+Dashboard';
-                    }}
-                  />
+              <div style={styles.projectTopGrid}>
+                <div style={styles.projectImgBox}>
+                  <img src={getImgPath(proj.image)} alt={proj.title} style={styles.projectImg} />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <p style={{ color: '#cbd5e1', fontSize: '15px', lineHeight: 1.6 }}>{proj.description}</p>
+                </div>
+              </div>
+
+              <div style={styles.projectInnerGrid}>
+                <div style={styles.innerBox}>
+                  <h5 style={styles.innerBoxTitle}>{proj.col1Title}</h5>
+                  {proj.col1Content && <p style={styles.innerBoxP}>{proj.col1Content}</p>}
+                  {proj.col1List && (
+                    <ul style={styles.innerList}>
+                      {proj.col1List.map((li, i) => <li key={i}>{li}</li>)}
+                    </ul>
+                  )}
                 </div>
 
-                {/* Details */}
-                <div>
-                  <p style={{ color: '#cbd5e1', fontSize: '13px', lineHeight: '1.6', marginTop: 0, marginBottom: '20px' }}>
-                    {proj.description}
-                  </p>
+                <div style={styles.innerBox}>
+                  <h5 style={styles.innerBoxTitle}>{proj.col2Title}</h5>
+                  <p style={styles.innerBoxP}>{proj.col2Content}</p>
+                </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
-                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Problem Identified</h5>
-                      <p style={{ color: '#94a3b8', fontSize: '11px', textAlign: 'center', margin: 0, lineHeight: '1.4' }}>{proj.problem}</p>
+                <div style={styles.innerBox}>
+                  <h5 style={styles.innerBoxTitle}>{proj.col3Title}</h5>
+                  {proj.col3List && (
+                    <ul style={styles.innerList}>
+                      {proj.col3List.map((li, i) => <li key={i}>{li}</li>)}
+                    </ul>
+                  )}
+                  {proj.col3Badges && (
+                    <div style={styles.tagsFlex}>
+                      {proj.col3Badges.map((b, i) => <span key={i} className="tag-pill">{b}</span>)}
                     </div>
+                  )}
+                </div>
 
-                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Proposed Solution</h5>
-                      <p style={{ color: '#94a3b8', fontSize: '11px', textAlign: 'center', margin: 0, lineHeight: '1.4' }}>{proj.solution}</p>
-                    </div>
-
-                    <div style={{ backgroundColor: '#050a14', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <h5 style={{ color: '#00d8ff', fontSize: '12px', textAlign: 'center', margin: '0 0 6px 0' }}>Key Features</h5>
-                      <ul style={{ color: '#94a3b8', fontSize: '10px', margin: 0, paddingLeft: '15px', lineHeight: '1.4' }}>
-                        {proj.features.map((f, i) => <li key={i}>{f}</li>)}
-                      </ul>
-                    </div>
+                <div style={styles.innerBox}>
+                  <h5 style={styles.innerBoxTitle}>{proj.col4Title}</h5>
+                  <div style={styles.tagsFlex}>
+                    {proj.tags.map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Footer */}
-              <div style={{
-                display: 'flex',
-                justify: 'space-between',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-                paddingTop: '15px',
-                fontSize: '12px'
-              }}>
-                <span style={{ color: '#94a3b8' }}>Role: <strong style={{ color: '#00d8ff' }}>{proj.role}</strong></span>
-                <a href={proj.github} target="_blank" rel="noreferrer" style={{ color: '#00d8ff', textDecoration: 'none' }}>
-                  View Project on GitHub →
+              <div style={styles.projectFooterRow}>
+                <div>
+                  <span style={{ color: '#94a3b8', fontSize: '14px' }}>{proj.roleLabel} </span>
+                  <span style={{ color: '#00d2ff', fontSize: '14px', fontWeight: 600 }}>{proj.roleValue}</span>
+                </div>
+                <a href={proj.github} target="_blank" rel="noreferrer" style={styles.githubLink}>
+                  {proj.linkText}
                 </a>
               </div>
             </div>
           ))}
-        </section>
+        </div>
+      </section>
 
-        {/* Certifications Section */}
-        <section id="certifications">
-          <h2 style={{ fontSize: '36px', color: '#00d8ff', textAlign: 'center', marginBottom: '40px', fontWeight: 'bold' }}>
-            Certifications
-          </h2>
-
-          <div style={{ maxWidth: '700px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {certifications.map((cert, idx) => (
-              <div key={idx} style={{
-                backgroundColor: '#0a1120',
-                border: '1px solid rgba(6, 182, 212, 0.4)',
-                borderRadius: '16px',
-                padding: '25px',
-                textAlign: 'center'
-              }}>
-                <h3 style={{ color: '#00d8ff', fontSize: '18px', margin: '0 0 8px 0' }}>{cert.title}</h3>
-                <p style={{ color: '#ffffff', fontSize: '13px', fontWeight: 'bold', margin: '0 0 15px 0' }}>{cert.issuer}</p>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  {cert.tags.map((tag, tIdx) => (
-                    <span key={tIdx} style={{
-                      border: '1px solid #00d8ff',
-                      color: '#00d8ff',
-                      fontSize: '11px',
-                      padding: '4px 14px',
-                      borderRadius: '15px',
-                      backgroundColor: 'rgba(0, 216, 255, 0.05)'
-                    }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+      {/* Certifications Section */}
+      <section id="certifications" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Certifications</h2>
+        <div style={styles.certGrid}>
+          {certifications.map((cert, index) => (
+            <div key={index} className="card-glow" style={styles.certCard}>
+              <h3 style={styles.certTitle}>{cert.title}</h3>
+              <p style={styles.certIssuer}>{cert.issuer}</p>
+              <div style={{ ...styles.tagsFlex, marginTop: '20px' }}>
+                {cert.tags.map((t, i) => <span key={i} className="tag-pill">{t}</span>)}
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      </div>
+      {/* Business Analyst Career Statement Section */}
+      <section style={styles.section}>
+        <div className="card-glow" style={styles.careerStatementCard}>
+          <h3 style={styles.careerTitle}>🎯 Business Analyst Career Statement</h3>
+          <p style={styles.careerDesc}>
+            I am currently building my career toward Business Analysis, with a focus on understanding business problems, analyzing requirements, improving processes, and using data and technology to develop practical solutions. My combination of ICT knowledge, business analytics experience, project management knowledge, and hands-on system development projects allows me to understand both business needs and technical solutions.
+          </p>
+        </div>
+      </section>
+
+      {/* Get In Touch & Contact Section */}
+      <section id="contact" style={styles.section}>
+        <h2 style={styles.sectionTitle}>Get In Touch</h2>
+        <div style={styles.contactGrid}>
+          {/* Let's Connect Info Card */}
+          <div className="card-glow" style={styles.contactInfoCard}>
+            <h3 style={{ color: '#00d2ff', fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>Let's Connect</h3>
+            <p style={{ color: '#94a3b8', fontSize: '14px', lineHeight: 1.6, marginBottom: '25px' }}>
+              I'm always interested in discussing new opportunities, business analysis projects, collaborations, or technology-driven solutions.
+            </p>
+
+            <div style={styles.contactDetailBox}>
+              <div style={styles.contactIconCircle}>✉️</div>
+              <div>
+                <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600 }}>Email</div>
+                <div style={{ fontSize: '14px', color: '#ffffff' }}>kavindi.sandaruwani@gmail.com</div>
+              </div>
+            </div>
+
+            <div style={styles.contactDetailBox}>
+              <div style={styles.contactIconCircle}>📍</div>
+              <div>
+                <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600 }}>Location</div>
+                <div style={{ fontSize: '14px', color: '#ffffff' }}>Sri Lanka</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Send me a message Form Card */}
+          <div className="card-glow" style={styles.contactFormCard}>
+            <h3 style={{ color: '#00d2ff', fontSize: '20px', fontWeight: 700, marginBottom: '20px' }}>Send me a message</h3>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <input 
+                type="text" 
+                placeholder="Your Name" 
+                className="form-input"
+                style={styles.inputField}
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                required
+              />
+              <input 
+                type="email" 
+                placeholder="Your Email" 
+                className="form-input"
+                style={styles.inputField}
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                required
+              />
+              <textarea 
+                placeholder="Your Message" 
+                className="form-textarea"
+                style={styles.textAreaField}
+                rows="5"
+                value={formData.message}
+                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                required
+              ></textarea>
+              <button type="submit" className="btn-cyan" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+                ✈️ Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Social Icons Footer Row */}
+        <div style={styles.socialIconsRow}>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={styles.socialCircle}>in</a>
+          <a href="https://github.com/kavindikanishka03-eng" target="_blank" rel="noreferrer" style={styles.socialCircle}>git</a>
+          <a href="mailto:kavindi.sandaruwani@gmail.com" style={styles.socialCircle}>✉</a>
+        </div>
+      </section>
+
+      {/* Footer copyright */}
+      <footer style={styles.footer}>
+        <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>© 2026 Kavindi Sandaruwani. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
+
+// Inline Styling Config matching images exactly
+const styles = {
+  body: {
+    backgroundColor: '#050b14',
+    color: '#ffffff',
+    fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    minHeight: '100vh',
+    margin: 0,
+    padding: 0
+  },
+  nav: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '18px 6%',
+    backgroundColor: '#050b14',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    zIndex: 1000,
+    boxSizing: 'border-box'
+  },
+  logo: {
+    color: '#00d2ff',
+    fontWeight: 800,
+    fontSize: '18px',
+    letterSpacing: '1px'
+  },
+  navLinks: {
+    display: 'flex',
+    listStyle: 'none',
+    gap: '20px',
+    alignItems: 'center',
+    margin: 0,
+    padding: 0
+  },
+  navLink: {
+    color: '#cbd5e1',
+    textDecoration: 'none',
+    fontSize: '14px',
+    fontWeight: 500
+  },
+  navContactBtn: {
+    border: '1px solid #00d2ff',
+    padding: '6px 18px',
+    borderRadius: '20px',
+    color: '#00d2ff'
+  },
+  heroSection: {
+    minHeight: '90vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: '120px 10% 40px 10%'
+  },
+  heroH1: {
+    fontSize: '48px',
+    color: '#00d2ff',
+    fontWeight: 800,
+    marginBottom: '10px'
+  },
+  heroH2: {
+    fontSize: '20px',
+    color: '#ffffff',
+    fontWeight: 600,
+    marginBottom: '25px'
+  },
+  heroP: {
+    color: '#94a3b8',
+    maxWidth: '780px',
+    lineHeight: 1.7,
+    fontSize: '15px',
+    marginBottom: '35px'
+  },
+  section: {
+    padding: '70px 6%'
+  },
+  sectionTitle: {
+    textAlign: 'center',
+    fontSize: '32px',
+    color: '#00d2ff',
+    fontWeight: 800,
+    marginBottom: '45px'
+  },
+  aboutGrid: {
+    display: 'grid',
+    gridTemplateColumns: '280px 1fr',
+    gap: '40px',
+    alignItems: 'start'
+  },
+  profileCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '30px 20px',
+    textAlign: 'center'
+  },
+  profileCircleBox: {
+    width: '150px',
+    height: '150px',
+    borderRadius: '50%',
+    margin: '0 auto',
+    padding: '4px',
+    background: 'linear-gradient(135deg, #00d2ff, #0055ff)'
+  },
+  profileImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '50%'
+  },
+  aboutText: {
+    color: '#cbd5e1',
+    lineHeight: 1.7,
+    fontSize: '14px'
+  },
+  counterGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '15px',
+    marginTop: '10px'
+  },
+  counterCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    padding: '20px 10px',
+    borderRadius: '12px',
+    textAlign: 'center'
+  },
+  counterNum: {
+    color: '#00d2ff',
+    fontSize: '24px',
+    fontWeight: 800,
+    margin: '0 0 5px 0'
+  },
+  counterLabel: {
+    color: '#94a3b8',
+    fontSize: '12px',
+    margin: 0
+  },
+  timelineContainer: {
+    position: 'relative',
+    maxWidth: '900px',
+    margin: '0 auto',
+    paddingLeft: '30px'
+  },
+  timelineLine: {
+    position: 'absolute',
+    left: '8px',
+    top: '15px',
+    bottom: '15px',
+    width: '2px',
+    background: '#00d2ff'
+  },
+  timelineItem: {
+    position: 'relative',
+    marginBottom: '25px'
+  },
+  timelineDot: {
+    position: 'absolute',
+    left: '-30px',
+    top: '20px',
+    width: '14px',
+    height: '14px',
+    borderRadius: '50%',
+    background: '#050b14',
+    border: '2px solid #00d2ff'
+  },
+  timelineCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '12px',
+    padding: '25px'
+  },
+  eduTitle: {
+    color: '#00d2ff',
+    fontSize: '18px',
+    margin: '0 0 5px 0',
+    fontWeight: 700
+  },
+  eduSub: {
+    color: '#ffffff',
+    fontSize: '13px',
+    fontWeight: 600,
+    marginBottom: '10px'
+  },
+  eduDesc: {
+    color: '#94a3b8',
+    fontSize: '14px',
+    lineHeight: 1.6,
+    margin: 0
+  },
+  skillsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gap: '20px'
+  },
+  skillCategoryCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '14px',
+    padding: '22px'
+  },
+  skillCategoryTitle: {
+    color: '#ffffff',
+    fontSize: '16px',
+    fontWeight: 700,
+    marginBottom: '15px'
+  },
+  skillsColumnFlex: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '8px'
+  },
+  toolsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+    gap: '15px'
+  },
+  toolCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '12px',
+    padding: '20px',
+    textAlign: 'center'
+  },
+  toolCardTitle: {
+    color: '#00d2ff',
+    fontSize: '15px',
+    fontWeight: 700,
+    marginBottom: '12px'
+  },
+  tagsFlex: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '8px'
+  },
+  tagsFlexCenter: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '8px',
+    justifyContent: 'center'
+  },
+  projectMainCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '30px'
+  },
+  projectHeaderRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px'
+  },
+  categoryBadge: {
+    background: '#131e32',
+    color: '#94a3b8',
+    padding: '4px 12px',
+    borderRadius: '12px',
+    fontSize: '12px'
+  },
+  projectTopGrid: {
+    display: 'grid',
+    gridTemplateColumns: '320px 1fr',
+    gap: '25px',
+    marginBottom: '25px'
+  },
+  projectImgBox: {
+    borderRadius: '10px',
+    overflow: 'hidden',
+    border: '1px solid #1e293b'
+  },
+  projectImg: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '180px',
+    objectFit: 'cover',
+    display: 'block'
+  },
+  projectInnerGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '15px',
+    marginBottom: '20px'
+  },
+  innerBox: {
+    background: '#050b14',
+    border: '1px solid #1e293b',
+    borderRadius: '10px',
+    padding: '16px'
+  },
+  innerBoxTitle: {
+    color: '#00d2ff',
+    fontSize: '14px',
+    fontWeight: 700,
+    marginBottom: '10px'
+  },
+  innerBoxP: {
+    color: '#94a3b8',
+    fontSize: '13px',
+    lineHeight: 1.5,
+    margin: 0
+  },
+  innerList: {
+    color: '#94a3b8',
+    fontSize: '13px',
+    lineHeight: 1.6,
+    paddingLeft: '16px',
+    margin: 0
+  },
+  projectFooterRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: '15px',
+    borderTop: '1px solid #1e293b'
+  },
+  githubLink: {
+    color: '#00d2ff',
+    textDecoration: 'none',
+    fontSize: '14px',
+    fontWeight: 600
+  },
+  certGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gap: '25px'
+  },
+  certCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '25px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  certTitle: {
+    color: '#00d2ff',
+    fontSize: '18px',
+    fontWeight: 700,
+    marginBottom: '8px'
+  },
+  certIssuer: {
+    color: '#ffffff',
+    fontSize: '14px',
+    fontWeight: 600,
+    margin: 0
+  },
+  careerStatementCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '40px',
+    textAlign: 'center',
+    maxWidth: '900px',
+    margin: '0 auto'
+  },
+  careerTitle: {
+    color: '#00d2ff',
+    fontSize: '22px',
+    fontWeight: 700,
+    marginBottom: '20px'
+  },
+  careerDesc: {
+    color: '#cbd5e1',
+    fontSize: '15px',
+    lineHeight: 1.8,
+    margin: 0
+  },
+  contactGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+    gap: '30px',
+    maxWidth: '1000px',
+    margin: '0 auto'
+  },
+  contactInfoCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '30px'
+  },
+  contactFormCard: {
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    borderRadius: '16px',
+    padding: '30px'
+  },
+  contactDetailBox: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '15px',
+    background: '#050b14',
+    border: '1px solid #1e293b',
+    borderRadius: '12px',
+    padding: '15px',
+    marginBottom: '15px'
+  },
+  contactIconCircle: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    background: 'rgba(0, 210, 255, 0.1)',
+    color: '#00d2ff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px'
+  },
+  inputField: {
+    background: '#050b14',
+    border: '1px solid #1e293b',
+    borderRadius: '10px',
+    padding: '14px',
+    color: '#ffffff',
+    fontSize: '14px',
+    width: '100%',
+    boxSizing: 'border-box'
+  },
+  textAreaField: {
+    background: '#050b14',
+    border: '1px solid #1e293b',
+    borderRadius: '10px',
+    padding: '14px',
+    color: '#ffffff',
+    fontSize: '14px',
+    width: '100%',
+    boxSizing: 'border-box',
+    resize: 'vertical'
+  },
+  socialIconsRow: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '20px',
+    marginTop: '40px'
+  },
+  socialCircle: {
+    width: '42px',
+    height: '42px',
+    borderRadius: '50%',
+    background: '#0a111e',
+    border: '1px solid #1e293b',
+    color: '#00d2ff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    fontSize: '15px',
+    transition: 'all 0.3s ease'
+  },
+  footer: {
+    textAlign: 'center',
+    padding: '30px 20px',
+    borderTop: '1px solid #1e293b',
+    marginTop: '50px'
+  }
+};
 
 export default App;
