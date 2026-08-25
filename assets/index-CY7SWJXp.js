@@ -30,6 +30,25 @@ Error generating stack: `+e.message+`
           border: none;
           cursor: pointer;
         }
+          body {
+  font-size: 16px; 
+}
+p {
+  font-size: 1.05rem; 
+}
+
+.typing-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
         .btn-cyan:hover {
           box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
           transform: translateY(-2px);
