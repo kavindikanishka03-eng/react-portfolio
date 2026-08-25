@@ -34,8 +34,8 @@ Error generating stack: `+e.message+`
   font-size: 16px; 
 }
 p {
-  font-size: 1.25rem !important; /* මෙතන ප්‍රමාණය තවත් වැඩි කළා */
-  line-height: 1.7;             /* පේළි අතර ඉඩ වැඩි කරලා ලස්සනට පේන්න හැදුවා */
+  font-size: 1.05rem !important; /* නෙත්මිනිගේ එකේ වගේම නියම standard size එක */
+  line-height: 1.6 !important;     /* පේළි අතර ඉඩ හරියටම තබා ගැනීමට */
 }
 
 .typing-dots::after {
